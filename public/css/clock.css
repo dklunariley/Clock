@@ -1,0 +1,12 @@
+main {
+
+}
+
+.face {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    width: 100vh;
+    height: 100vh;
+    background-color: darkslategray;
+}
