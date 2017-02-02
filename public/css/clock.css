@@ -1,12 +1,26 @@
+body {
+    background-color: #252325;
+}
+
 main {
 
 }
 
-.face {
+.number-ring {
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
-    width: 100vh;
-    height: 100vh;
-    background-color: darkslategray;
+    width: 98vh;
+    height: 98vh;
+    background-color: #333333;
+    display: flex;
+    align-items: center;
+}
+
+.face {
+    margin: 0 auto 0 auto;
+    border-radius: 50%;
+    width: 80vh;
+    height: 80vh;
+    background-color: #252325;
 }
