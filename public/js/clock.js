@@ -11,4 +11,14 @@
 // Equinox and solstice colors (Eq and sol API?)
 
 /****************  Hand object **********/
-// One hand to rule them all.
+// One hand to rule them all. That pulses to represent seconds.
+
+/****************  Other Ideas  *********/
+// Separate sun indicator for DST offset. Also greys out under horizon.
+// Moon symbol. Obviously changes for phases. Circles face to represent position.
+// Month and day arc.
+// Season indicator.
+// Temp and weather icons.
+
+// Everything here replicated in an analog style.
+// And by the way this is a 24 hour clock with midnight (0:00) at the bottom.
