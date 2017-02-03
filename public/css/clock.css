@@ -6,27 +6,48 @@ main {
 
 }
 
+body, main, .sun-hand, .number-ring {
+    position: relative;
+}
+.sun-hand, .number-ring, .date, .face {
+    display: flex;
+    align-items: center;
+}
 .sun-hand {
+    z-index:10;
     margin: 0 auto 0 auto;
     border-radius: 50%;
     width: 98vh;
     height: 98vh;
     background-color: #404040;
-    display: flex;
-    align-items: center;
+
     box-shadow: 0 -5vh 30vh #484848 inset;
 }
 
 .number-ring {
+    z-index: 9;
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
     width: 90vh;
     height: 90vh;
     background-color: #262626;
-    display: flex;
-    align-items: center;
+
     box-shadow: 0 -15vh 25vh #151515 inset;
+}
+
+.date {
+
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    width: 50vh;
+    height: 50vh;
+    margin-top: 50vh;
+    background-color: ghostwhite;
+    box-shadow: 0 -1vh 5vh #0f0f0f inset;
+    clip-path: ellipse(15% 50% at 52% 50%);
+    transform: rotate(90deg);
 }
 
 .face {
@@ -37,30 +58,4 @@ main {
     height: 70vh;
     background-color: #1a1a1a;
     box-shadow: 0 -1vh 5vh #0f0f0f inset;
-    display: flex;
-    align-items: center;
-}
-
-.arcs {
-    display: flex;
-    align-items: center;
-
-}
-.arcs {
-    margin-left: -21vh;
-    margin-top: 70vh;
-}
-
-.arcs div{
-    margin-left:auto;
-    margin-right: auto;
-    border: 3px solid ghostwhite; /* the 'strokes' of the arc */
-    display: inline-block;
-    min-width: 70vh; /* the width of the innermost element */
-    min-height: 40vh; /* the height of the innermost element */
-    padding: 5em; /* the spacing between each arc */
-    border-radius: 50%; /* for making the elements 'round' */
-    border-right-color: transparent; /* hiding the top border */
-    border-bottom-color: transparent;
-    border-left-color: transparent;
 }
