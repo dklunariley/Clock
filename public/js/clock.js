@@ -22,13 +22,18 @@
 
 // Everything here replicated in an analog style.
 // And by the way this is a 24 hour clock with midnight (0:00) at the bottom.
-var x = 0;
 
-function setSecondHand () {
-    x += 6;
-    $("#hour-ind").css('transform','rotate(' + x + 'deg)');
-    if (x == 360){x = 0}
-}
+// var x = 0,
+//     $hour_ind = $("#hour-ind");
+//
+// function setSecondHand () {
+//     x += 0.00416666666;
+//     $hour_ind.css('transform','rotate(' + x + 'deg)');
+//     if (x == 86400){x = 0}
+//     console.log(x);
+// }
+//
+// setInterval(setSecondHand, 1000);
 
-setInterval(setSecondHand, 1000);
+
 

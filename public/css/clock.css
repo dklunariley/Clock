@@ -2,24 +2,10 @@ body {
     background-color: #252325;
 }
 
-.hour-ind {
-    position: absolute;
-    z-index: 5;
-    margin: 0 auto 0 auto;
-    border-radius: 50%;
-    width: 98vh;
-    height: 98vh;
-    background-color: transparent;
-    transform: rotate(0deg);
-}
-
-ellipse {
-    position: relative;
-}
-
 main {
-    position: absolute;
-    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
 }
 
 .hour-ring, .number-ring, .date, .face {
@@ -27,23 +13,84 @@ main {
     align-items: center;
 }
 
+.hour-ind {
+    position: absolute;
+    margin: 0 auto 0 auto;
+    border-radius: 50%;
+    width: 98vh;
+    height: 98vh;
+    background-color: transparent;
+    animation: rotate 60s infinite linear;
+}
+
+circle {
+    position: absolute;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
 .hour-ring{
     margin: 0 auto 0 auto;
     border-radius: 50%;
     width: 98vh;
     height: 98vh;
-    background-color: #404040;
+    /*background-color: #404040;*/
     box-shadow: 0 -5vh 30vh #484848 inset;
+    position: relative;
+    background-image: url("../bezel.jpg");
+    background-size: 120%;
+}
+
+.circle-container {
+    position: relative;
+    width: 90vh;
+    height: 90vh;
+    border: dashed 1px;
+    border-radius: 50%;
+}
+
+.circle-container h1 {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 3em; height: 3em;
+    margin: -1.5em; /* 2em = 4em/2 */ /* half the width */
+}
+
+.circle-container h1 { display: block; width: 100%; }
+.deg0 { transform: translate(11em); } /* 12em = half the width of the wrapper */
+.deg270 { transform: rotate(95deg) translate(-9em) rotate(-95deg); }
+.deg90{ transform: rotate(83deg) translate(10.5em) rotate(-83deg); }
+.deg180 { transform: rotate(180deg) translate(9em) rotate(-180deg); }
+/*.deg60 { transform: rotate(45deg) translate(12em) rotate(-45deg); }*/
+/*.deg75 { transform: rotate(45deg) translate(12em) rotate(-45deg); }*/
+/*.deg90 { transform: rotate(45deg) translate(12em) rotate(-45deg); }*/
+/*.deg105 { transform: rotate(135deg) translate(12em) rotate(-135deg); }*/
+/*.deg120 { transform: translate(-12em); }*/
+/*.deg135 { transform: rotate(225deg) translate(12em) rotate(-225deg); }*/
+/*.deg150 { transform: rotate(315deg) translate(12em) rotate(-315deg); }*/
+
+h1 {
+    color: ghostwhite;
+    position: relative;
 }
 
 .number-ring {
+    position: relative;
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
     width: 90vh;
     height: 90vh;
     background-color: #262626;
-
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 97%;
     box-shadow: 0 -15vh 25vh #151515 inset;
 }
 
@@ -61,11 +108,14 @@ main {
 /*}*/
 
 .face {
-    margin-left: auto;
+    position: absolute;
+    margin-left: 10vh;
     margin-right: auto;
     border-radius: 50%;
     width: 70vh;
     height: 70vh;
-    background-color: #1a1a1a;
+    /*background-color: #1a1a1a;*/
+    background-image: url("../gun_metal/gun_metal.png");
     box-shadow: 0 -1vh 5vh #0f0f0f inset;
+    opacity: .6;
 }
