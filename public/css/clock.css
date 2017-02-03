@@ -2,30 +2,41 @@ body {
     background-color: #252325;
 }
 
-main {
-
+.hour-ind {
+    position: absolute;
+    z-index: 5;
+    margin: 0 auto 0 auto;
+    border-radius: 50%;
+    width: 98vh;
+    height: 98vh;
+    background-color: transparent;
+    transform: rotate(0deg);
 }
 
-body, main, .sun-hand, .number-ring {
+ellipse {
     position: relative;
 }
-.sun-hand, .number-ring, .date, .face {
+
+main {
+    position: absolute;
+    z-index: 1;
+}
+
+.hour-ring, .number-ring, .date, .face {
     display: flex;
     align-items: center;
 }
-.sun-hand {
-    z-index:10;
+
+.hour-ring{
     margin: 0 auto 0 auto;
     border-radius: 50%;
     width: 98vh;
     height: 98vh;
     background-color: #404040;
-
     box-shadow: 0 -5vh 30vh #484848 inset;
 }
 
 .number-ring {
-    z-index: 9;
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
@@ -36,19 +47,18 @@ body, main, .sun-hand, .number-ring {
     box-shadow: 0 -15vh 25vh #151515 inset;
 }
 
-.date {
-
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 50%;
-    width: 50vh;
-    height: 50vh;
-    margin-top: 50vh;
-    background-color: ghostwhite;
-    box-shadow: 0 -1vh 5vh #0f0f0f inset;
-    clip-path: ellipse(15% 50% at 52% 50%);
-    transform: rotate(90deg);
-}
+/*.date {*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*border-radius: 50%;*/
+    /*width: 50vh;*/
+    /*height: 50vh;*/
+    /*margin-top: 50vh;*/
+    /*background-color: ghostwhite;*/
+    /*box-shadow: 0 1vh 5vh #0f0f0f inset;*/
+    /*clip-path: ellipse(15% 50% at 52% 50%);*/
+    /*transform: rotate(90deg);*/
+/*}*/
 
 .face {
     margin-left: auto;
