@@ -49,12 +49,13 @@
     var rotation;
     var number;
     var angle;
-        function cE(type) {
+
+    function createElement(type) {
         return document.createElementNS("http://www.w3.org/2000/svg", type);
     }
 
     function createMark(group, outerRadius, length, rotation) {
-        var mark = cE('line');
+        var mark = createElement('line');
         mark.setAttribute('x1', outerRadius - length);
         mark.setAttribute('x2', outerRadius);
         mark.setAttribute('y1', '0');
@@ -64,17 +65,17 @@
     }
 
     for (var i = 0; i < 24; i++) {
-        number = cE('text');
+        number = createElement('text');
         angle = Math.PI / 12 * i;
         number.setAttribute('x', radius * Math.cos(angle));
         number.setAttribute('y', radius * Math.sin(angle));
         number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
         rotation = i * 15;
-        createMark(ticks, outerRadius + 32, 10, rotation);
+        createMark(ticks, outerRadius + 40, 15, rotation);
 
         for (j = 1; j < 12; j++) {
-            createMark(ticks, outerRadius + 40, 8, rotation + j * 6);
+            createMark(ticks, outerRadius + 40, 8, rotation + j * 1.256);
         }
     }
 

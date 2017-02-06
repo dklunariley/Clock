@@ -86,20 +86,24 @@ main {
     opacity: .6;
 }
 
-svg > g {
-    transform: translate(50vh, 50vh);
+.numbers, .ticks {
+    position: absolute;
+    padding: 50%;
+    margin-top: 48%;
+    margin-left: -2%;
+    transform: translate(1%, 1%);
 }
 
-#numbers {
-    transform: translate(0, 24px);
+.numbers {
+    margin-top: 49.5%;
 }
 
-#numbers > text {
+.numbers > text {
     fill: ghostwhite;
     text-anchor: middle;
 }
 
-#ticks > line {
+.ticks > line {
     stroke: ghostwhite;
 }
 
