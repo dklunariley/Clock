@@ -20,14 +20,16 @@ main {
     width: 98vh;
     height: 98vh;
     background-color: transparent;
-    animation: rotate 60s infinite linear;
+    /*animation: rotate 60s infinite linear;*/
 }
+/*
 
 @keyframes rotate {
     100% {
         transform: rotateZ(360deg);
     }
-}
+*/
+/*}*/
 
 .hour-ring{
     /*leave this relative;*/
@@ -46,7 +48,6 @@ main {
     position: absolute;
     width: 90vh;
     height: 90vh;
-    /*border: dashed 1px;*/
     border-radius: 50%;
 }
 

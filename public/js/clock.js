@@ -23,17 +23,25 @@
 // Everything here replicated in an analog style.
 // And by the way this is a 24 hour clock with midnight (0:00) at the bottom.
 
-// var x = 0,
-//     $hour_ind = $("#hour-ind");
-//
-// function setSecondHand () {
-//     x += 0.00416666666;
-//     $hour_ind.css('transform','rotate(' + x + 'deg)');
-//     if (x == 86400){x = 0}
-//     console.log(x);
-// }
-//
-// setInterval(setSecondHand, 1000);
+var $hour_ind = $("#hour-ind"),
+    secs = 0;
 
+updateSecs();
+
+function updateSecs() {
+    var dt = new Date();
+    secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
+    // console.log("From Date (): " + secs);
+}
+
+function setIndicator () {
+    secs += 1;
+    var indicator = secs * 0.00416666666; // 0.00416666666 is the second arc when 360 = 1 day.
+    $hour_ind.css('transform','rotate(' + indicator + 'deg)');
+    if (secs == 86399){updateSecs()}
+    // console.log("Calculated: " + secs);
+}
+
+setInterval(setIndicator, 1000);
 
 
