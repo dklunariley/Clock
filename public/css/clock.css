@@ -1,5 +1,12 @@
 body {
     background-color: #252325;
+    /*font-family: Century Gothic, sans-serif;*/
+    font-family: Gill Sans, Gill Sans MT, sans-serif;
+    color: ghostwhite;
+}
+
+body > * {
+margin: auto;
 }
 
 main {
@@ -20,16 +27,7 @@ main {
     width: 98vh;
     height: 98vh;
     background-color: transparent;
-    /*animation: rotate 60s infinite linear;*/
 }
-/*
-
-@keyframes rotate {
-    100% {
-        transform: rotateZ(360deg);
-    }
-*/
-/*}*/
 
 .hour-ring{
     /*leave this relative;*/
@@ -51,43 +49,6 @@ main {
     border-radius: 50%;
 }
 
-.circle-container h1 {
-    position: absolute;
-    color: ghostwhite;
-    font-size: 7.6vh;
-    display: block;
-    overflow: hidden;
-    top: 50%; left: 50%;
-    width: 2em; height: 2em;
-    margin: -1.4em; /* 2em = 4em/2 */ /* half the width */
-    line-height: 1.5;
-}
-
-.circle-container h1 { display: block; width: 100%; }
-.deg0   { transform: rotate(5.8deg)  translate(6.2em) rotate(-5.8deg);} /* 12em = half the width of the wrapper */
-.deg15  { transform: rotate(18deg)  translate(6.3em) rotate(-18deg);  }
-.deg30  { transform: rotate(31deg)  translate(6.4em) rotate(-31deg);  }
-.deg45  { transform: rotate(43deg)  translate(6.4em) rotate(-43deg);  }
-.deg60  { transform: rotate(56deg)  translate(6.3em) rotate(-56deg);  }
-.deg75  { transform: rotate(69deg)  translate(6.2em) rotate(-69deg);  }
-.deg90  { transform: rotate(79deg)  translate(6.05em) rotate(-79deg); }
-.deg105 { transform: rotate(93deg)  translate(5.8em)  rotate(-93deg); }
-.deg120 { transform: rotate(107deg) translate(5.45em) rotate(-107deg); }
-.deg135 { transform: rotate(120deg) translate(5.15em) rotate(-120deg); }
-.deg150 { transform: rotate(137deg) translate(4.75em) rotate(-137deg); }
-.deg165 { transform: rotate(153deg) translate(4.4em) rotate(-153deg); }
-.deg180 { transform: rotate(172deg) translate(4.2em) rotate(-172deg); }
-.deg195 { transform: rotate(190deg) translate(4.0em) rotate(-190deg); }
-.deg210 { transform: rotate(209.5deg) translate(3.95em) rotate(-209.5deg); }
-.deg225 { transform: rotate(230deg) translate(4em) rotate(-230deg); }
-.deg240 { transform: rotate(246deg) translate(4.3em) rotate(-246deg); }
-.deg255 { transform: rotate(264deg) translate(4.45em) rotate(-264deg); }
-.deg270 { transform: rotate(281deg) translate(4.7em) rotate(-281deg); }
-.deg285 { transform: rotate(297.5deg) translate(5em) rotate(-297.5deg); }
-.deg300 { transform: rotate(312.5deg) translate(5.3em) rotate(-312.5deg); }
-.deg315 { transform: rotate(326.5deg) translate(5.54em) rotate(-326.5deg); }
-.deg330 { transform: rotate(340.5deg) translate(5.8em) rotate(-340.5deg); }
-.deg345 { transform: rotate(353.5deg) translate(6em) rotate(-353.5deg); }
 
 .number-ring {
     position: relative;
@@ -123,7 +84,6 @@ main {
     border-radius: 50%;
     width: 70vh;
     height: 70vh;
-    /*background-color: #1a1a1a;*/
     background-image: url("../gun_metal/gun_metal.png");
     /*background-image: url("../24-star.gif");*/
     background-size: 100%;
@@ -132,3 +92,41 @@ main {
     box-shadow: 0 -1vh 5vh #0f0f0f inset;
     opacity: .6;
 }
+
+/*html,*/
+/*body {*/
+    /*height: 100%;*/
+    /*margin: 0;*/
+/*}*/
+
+/*body {*/
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*background-color: black;*/
+    /*color: white;*/
+/*}*/
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+svg > g {
+    transform: translate(50vh, 50vh);
+}
+
+#numbers {
+    transform: translate(0, 6px);
+}
+
+#numbers > text {
+    fill: white;
+    text-anchor: middle;
+}
+
+#ticks > line {
+    stroke: white;
+}
+
+
+
