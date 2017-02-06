@@ -42,11 +42,10 @@
 
     setInterval(setIndicator, 1000);
 
-    var radius = 350;
+    var radius = 340;
     var outerRadius = radius - 10;
         var numbers = document.getElementById('numbers');
     var ticks = document.getElementById('ticks');
-    var mark;
     var rotation;
     var number;
     var angle;
@@ -69,13 +68,13 @@
         angle = Math.PI / 12 * i;
         number.setAttribute('x', radius * Math.cos(angle));
         number.setAttribute('y', radius * Math.sin(angle));
-        number.innerHTML = ((i + 2) % 24);
+        number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
         rotation = i * 15;
-        createMark(ticks, outerRadius, 16, rotation);
+        createMark(ticks, outerRadius + 32, 10, rotation);
 
         for (j = 1; j < 12; j++) {
-            createMark(ticks, outerRadius, 8, rotation + j * 6);
+            createMark(ticks, outerRadius + 40, 8, rotation + j * 6);
         }
     }
 
