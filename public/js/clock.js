@@ -63,7 +63,7 @@
         number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
         rotation = i * 15;
-        createMark(ticks, outerRadius + 40, 15, rotation);
+        createMark(ticks, outerRadius + 40, 20, rotation);
 
         for (j = 1; j < 12; j++) {
             if (j % 6 == 0){

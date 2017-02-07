@@ -3,7 +3,6 @@ body {
     /*font-family: Century Gothic, sans-serif;*/
     font-family: Gill Sans, Gill Sans MT, sans-serif;
     font-size: 250%;
-    color: ghostwhite;
     display: flex;
 }
 
@@ -12,8 +11,6 @@ margin: auto;
 }
 
 main {
-    margin-left: auto;
-    margin-right: auto;
     position: relative;
 }
 
@@ -24,7 +21,6 @@ main {
 
 .hour-ind {
     position: absolute;
-    margin: 0 auto 0 auto;
     border-radius: 50%;
     width: 98vh;
     height: 98vh;
@@ -34,11 +30,9 @@ main {
 .hour-ring{
     /*leave this relative;*/
     position: relative;
-    margin: 0 auto 0 auto;
     border-radius: 50%;
     width: 98vh;
     height: 98vh;
-    /*background-color: #404040;*/
     box-shadow: 0 -5vh 40vh #484848 inset;
     background-image: url("../bezel.jpg");
     background-size: 120%;
@@ -65,7 +59,6 @@ main {
     /*width: 50vh;*/
     /*height: 50vh;*/
     /*margin-top: 50vh;*/
-    /*background-color: ghostwhite;*/
     /*box-shadow: 0 1vh 5vh #0f0f0f inset;*/
     /*clip-path: ellipse(15% 50% at 52% 50%);*/
     /*transform: rotate(90deg);*/
@@ -95,16 +88,16 @@ main {
 }
 
 .numbers {
-    margin-top: 48.5%;
+    margin-top: 47.5%;
 }
 
 .numbers > text {
-    fill: ghostwhite;
+    fill: ivory;
     text-anchor: middle;
 }
 
 .ticks > line {
-    stroke: ghostwhite;
+    stroke: ivory;
 }
 
 
