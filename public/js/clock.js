@@ -29,6 +29,7 @@
     function updateSecs() {
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
+        secs += 70; // Something is off approximately this amount. Instead of finding it....
     }
 
     function setIndicator () {
@@ -65,7 +66,7 @@
         createMark(ticks, outerRadius + 40, 15, rotation);
 
         for (j = 1; j < 12; j++) {
-            createMark(ticks, outerRadius + 40, 8, rotation + j * 1.256);
+            createMark(ticks, outerRadius + 40, 8, rotation + j * 1.25);
         }
     }
 }());
