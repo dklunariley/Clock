@@ -1,17 +1,10 @@
 /**
  * Created by macbookair on 2/2/17.
  */
-/***************  Face object ************/
-// insert an incremented number every 15 degrees. (Hour makers)
-// insert a tick mark every 3.75 degrees. (Fifteen minute intervals)
-
 /****************  API object ***********/
 // Api request for sunrise and sunset. (On start or midnight update)
 // Insert marks for sunrise and sunset.
 // Equinox and solstice colors (Eq and sol API?)
-
-/****************  Hand object **********/
-// One hand to rule them all. That pulses to represent seconds.
 
 /****************  Other Ideas  *********/
 // Separate sun indicator for DST offset. Also greys out under horizon.
@@ -20,11 +13,16 @@
 // Season indicator.
 // Temp and weather icons.
 
-// Everything here replicated in an analog style.
-// And by the way this is a 24 hour clock with midnight (0:00) at the bottom.
 (function  () {
     var $hour_ind = $("#hour-ind"),
-        secs = 0;
+        secs = 0,
+        radius = 348,
+        outerRadius = radius - 10,
+        numbers = document.getElementById('numbers'),
+        ticks = document.getElementById('ticks'),
+        rotation,
+        number,
+        angle;
 
     updateSecs();
 
@@ -41,14 +39,6 @@
     }
 
     setInterval(setIndicator, 1000);
-
-    var radius = 340;
-    var outerRadius = radius - 10;
-        var numbers = document.getElementById('numbers');
-    var ticks = document.getElementById('ticks');
-    var rotation;
-    var number;
-    var angle;
 
     function createElement(type) {
         return document.createElementNS("http://www.w3.org/2000/svg", type);
@@ -78,5 +68,4 @@
             createMark(ticks, outerRadius + 40, 8, rotation + j * 1.256);
         }
     }
-
 }());
