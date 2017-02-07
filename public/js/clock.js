@@ -66,7 +66,13 @@
         createMark(ticks, outerRadius + 40, 15, rotation);
 
         for (j = 1; j < 12; j++) {
-            createMark(ticks, outerRadius + 40, 8, rotation + j * 1.25);
+            if (j % 6 == 0){
+                createMark(ticks, outerRadius + 40, 18, rotation + j * 3.75);
+            } else if (j % 3 == 0) {
+                createMark(ticks, outerRadius + 40, 12, rotation + j * 3.75);
+            } else {
+                createMark(ticks, outerRadius + 40, 8, rotation + j * 1.25);
+            }
         }
     }
 }());
