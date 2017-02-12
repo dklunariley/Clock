@@ -23,6 +23,24 @@
         rotation,
         number,
         angle;
+        var $info = $.ajax('https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-12T22%3A23%3A42%2B00%3A00&signature=3392H5AY%2BzUv%2FuzdC7le4rsA12U%3D&version=2&prettyprint=1&object=sun&placeid=australia%2Flord-howe-island&startdt=2017-02-12&enddt=2017-02-13&types=all');
+
+
+
+        $info.done(function() {
+            info = $info.responseText;
+            var json = JSON.parse(info);
+            console.log(json.locations[0].astronomy.objects[0].days[0].events[4].type);
+            console.log("Received request");
+        });
+
+        $info.fail(function () {
+            console.log("Error");
+        });
+
+        $info.always(function () {
+            console.log("Complete");
+        });
 
     updateSecs();
 
@@ -76,3 +94,145 @@
         }
     }
 }());
+
+// test query for dateandtime.com
+// https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-12T18%3A57%3A46%2B00%3A00&signature=fz6cny4zA05%2F7bp1vuspGYk54RY%3D&version=2&prettyprint=1&object=moon&placeid=australia%2Flord-howe-island&startdt=2017-02-12&enddt=2017-02-15&geo=0&types=all
+//
+// {
+//     "version": 2,
+
+//     "locations": [{
+//                  "id": "750",
+
+//                  "geo": {
+//                      "name": "Lord Howe Island",
+
+//                      "state": "Lord Howe Island",
+
+//                       "country": {
+//                           "id": "au",
+//                           "name": "Australia"
+//                       },
+
+//                       "latitude": -31.557,
+
+//                       "longitude": 159.086
+//                  },
+
+//                  "astronomy": {
+//                               "objects": [{
+//                                          "name": "sun",
+
+//                                          "current": {
+//                                                      "azimuth": 89.0,
+//                                                      "altitude": 28.0,
+//                                                      "distance": 147696384
+//                                           },
+
+//                                          "days": [{
+//                                                  "date": "2017-02-12",
+//                                                  "events": [{
+//                                                              "type": "antimeridian",
+//                                                              "hour": 0,
+//                                                              "min": 38
+//                                                             },
+//                                                            {
+//                                                             "type": "twi18_start",
+//                                                             "hour": 4,
+//                                                             "min": 31
+//                                                           },
+//                                                           {
+//                                                           "type": "twi12_start",
+//                                                           "hour": 5,
+//                                                           "min": 3
+//                                                            },
+// {
+//                     "type": "twi6_start",
+//                     "hour": 5,
+//                     "min": 34
+//                 },{
+//                     "type": "rise",
+//                     "hour": 5,
+//                     "min": 59,
+//                     "azimuth": 106.8
+//                 },{
+//                     "type": "meridian",
+//                     "hour": 12,
+//                     "min": 38,
+//                     "altitude": 72.1,
+//                     "distance": 147673000
+//                 },{
+//                     "type": "set",
+//                     "hour": 19,
+//                     "min": 16,
+//                     "azimuth": 253.5
+//                 },{
+//                     "type": "twi6_end",
+//                     "hour": 19,
+//                     "min": 42
+//                 },{
+//                     "type": "twi12_end",
+//                     "hour": 20,
+//                     "min": 12
+//                 },{
+//                     "type": "twi18_end",
+//                     "hour": 20,
+//                     "min": 43
+//                 }],
+//                 "daylength": "13:17",
+//                 "moonphase": "waninggibbous"
+//             },{
+//                 "date": "2017-02-13",
+//                 "events": [{
+//                     "type": "antimeridian",
+//                     "hour": 0,
+//                     "min": 38
+//                 },{
+//                     "type": "twi18_start",
+//                     "hour": 4,
+//                     "min": 33
+//                 },{
+//                     "type": "twi12_start",
+//                     "hour": 5,
+//                     "min": 4
+//                 },{
+//                     "type": "twi6_start",
+//                     "hour": 5,
+//                     "min": 35
+//                 },{
+//                     "type": "rise",
+//                     "hour": 6,
+//                     "min": 0,
+//                     "azimuth": 106.4
+//                 },{
+//                     "type": "meridian",
+//                     "hour": 12,
+//                     "min": 38,
+//                     "altitude": 71.8,
+//                     "distance": 147701000
+//                 },{
+//                     "type": "set",
+//                     "hour": 19,
+//                     "min": 15,
+//                     "azimuth": 253.9
+//                 },{
+//                     "type": "twi6_end",
+//                     "hour": 19,
+//                     "min": 41
+//                 },{
+//                     "type": "twi12_end",
+//                     "hour": 20,
+//                     "min": 11
+//                 },{
+//                     "type": "twi18_end",
+//                     "hour": 20,
+//                     "min": 42
+//                 }],
+//                 "daylength": "13:15",
+//                 "moonphase": "waninggibbous"
+//             }]
+//         }]
+//     }
+// }]
+// }
+
