@@ -8,11 +8,21 @@
 <body>
 <main>
         <div class="hour-ring">
-            <div class="hour-ind" id="hour-ind">
-                <svg  xmlns="http://www.w3.org/2000/svg"
+            <div class="indicators" >
+                <svg id="hour-ind" xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 760 760"
                       preserveAspectRatio="none" width="100%" height="100%">
                     <polygon points="382,729 372,755 392,755" style="fill:#cc0000"/>
+                </svg>
+                <svg id="sunSetIndicator" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 760 760"
+                     preserveAspectRatio="none" width="100%" height="100%">
+                    <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,255,255);stroke-width:2" />
+                </svg>
+                <svg id="sunRiseIndicator" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 760 760"
+                     preserveAspectRatio="none" width="100%" height="100%">
+                    <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(0,0,0);stroke-width:2" />
                 </svg>
             </div>
 

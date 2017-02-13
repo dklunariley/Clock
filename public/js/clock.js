@@ -167,7 +167,8 @@
         sunRise,
         sunSetHour,
         sunSetMin,
-        sunset;
+        sunSet;
+
 
     
         // var $info = $.ajax('https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-13T00%3A55%3A54%2B00%3A00&signature=7W%2BD6kQ2SBrgumy88CTXeIvQnWg%3D&version=2&object=sun&placeid=australia%2Flord-howe-island&startdt=2017-02-12&types=all');
@@ -175,6 +176,8 @@
     testFunction();
     function testFunction()
     {
+        var $sunSetIndicator = $('#sunSetIndicator');
+        var $sunRiseIndicator = $('#sunRiseIndicator');
         // $info.done(function() {
         console.log("Received request");
         // info = $info.responseText;
@@ -183,10 +186,12 @@
         days = staticData.locations[0].astronomy.objects[0].days[0];
         sunRiseHour = days.events[4].hour;
         sunRiseMinute = days.events[4].min;
-        sunRise = (1000 * (60 * sunRiseMinute) + (60 * (60 * sunRiseHour)));
+        sunRise = (60 * sunRiseMinute) + (60 * (60 * sunRiseHour));
         sunSetHour = days.events[6].hour;
         sunSetMin = days.events[6].min;
-        sunSet = (1000 * (60 * sunSetMin) + (60 * (60 * sunSetHour)));
+        sunSet = (60 * sunSetMin) + (60 * (60 * sunSetHour));
+        setIndicator(sunRise, $sunRiseIndicator);
+        setIndicator(sunSet, $sunSetIndicator);
         console.log("Sun rise in milli secs: " + sunRise);
         console.log("Sun set in milli secs: " + sunSet);
 
@@ -209,14 +214,15 @@
         secs += 70; // Something is off approximately this amount. Instead of finding it....
     }
 
-    function setIndicator () {
+    function setIndicator (secs, $indicateType) {
         secs += 1;
+        console.log(secs);
         var indicator = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
-        $hour_ind.css('transform','rotate(' + indicator + 'deg)');
-        if (secs == 86399){updateSecs()}
+        $indicateType.css('transform','rotate(' + indicator + 'deg)');
+        if (secs == 86400){updateSecs();}
     }
 
-    setInterval(setIndicator, 1000);
+    setInterval(setIndicator(secs, $hour_ind), 1000);
 
     function createElement(type) {
         return document.createElementNS("http://www.w3.org/2000/svg", type);
