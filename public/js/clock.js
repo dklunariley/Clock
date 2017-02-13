@@ -241,8 +241,8 @@
     for (var i = 0; i < 24; i++) {
         number = createElement('text');
         angle = Math.PI / 12 * i;
-        number.setAttribute('x', radius * Math.cos(angle));
-        number.setAttribute('y', radius * Math.sin(angle));
+        number.setAttribute('x', (radius * Math.cos(angle)) + 380);
+        number.setAttribute('y', (radius * Math.sin(angle)) + 390);
         number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
         rotation = i * 15;

@@ -87,16 +87,15 @@ main {
 
 .numbers, .ticks {
     position: absolute;
-    padding: 50%;
-    margin-top: 48%;
-    margin-left: -2%;
-    transform: translate(1%, 1%);
+    /*padding: 50%;*/
+    /*margin-top: 48%;*/
+    /*margin-left: -2%;*/
+    /*transform: translate(1%, 1%);*/
 }
 
-.numbers {
-    position: absolute;
+.ticks {
+    padding: 100% 0 0 50%;
 }
-
 .numbers > text {
     fill: ivory;
     text-anchor: middle;
