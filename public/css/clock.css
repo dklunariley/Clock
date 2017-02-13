@@ -40,7 +40,7 @@ main {
     width: 98vh;
     height: 98vh;
     box-shadow: 0 -5vh 40vh #484848 inset;
-    background-image: url("../bezel.jpg");
+    background-image: url("/img/bezel.jpg");
     background-size: 120%;
 }
 
@@ -51,7 +51,7 @@ main {
     border-radius: 50%;
     width: 90vh;
     height: 90vh;
-    background: #262626 url(images/bg.gif) no-repeat center;
+    background: #262626 no-repeat center;
     background-size: 97%;
     box-shadow: 0 -15vh 25vh #151515 inset;
 }
@@ -74,7 +74,7 @@ main {
     border-radius: 50%;
     width: 70vh;
     height: 70vh;
-    background-image: url("../gun_metal/gun_metal.png");
+    background-image: url("/img/gun_metal.png");
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -94,12 +94,3 @@ main {
 .ticks > line {
     stroke: ivory;
 }
-
-@media only screen and (max-width: 768px) {
-    main {
-        height: 80%;
-    }
-}
-
-
-
