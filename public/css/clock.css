@@ -56,28 +56,14 @@ main {
     box-shadow: 0 -15vh 25vh #151515 inset;
 }
 
-/*.date {*/
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*border-radius: 50%;*/
-    /*width: 50vh;*/
-    /*height: 50vh;*/
-    /*margin-top: 50vh;*/
-    /*box-shadow: 0 1vh 5vh #0f0f0f inset;*/
-    /*clip-path: ellipse(15% 50% at 52% 50%);*/
-    /*transform: rotate(90deg);*/
-/*}*/
-
 .face {
-    position: absolute;
+    position: relative;
     margin-left: 10vh;
     border-radius: 50%;
     width: 70vh;
     height: 70vh;
-    background-image: url("/img/gun_metal.png");
+    background: url("/img/gun_metal.png") no-repeat center;
     background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
     box-shadow: 0 -1vh 5vh #0f0f0f inset;
     opacity: .6;
 }
@@ -94,3 +80,15 @@ main {
 .ticks > line {
     stroke: ivory;
 }
+
+/*.date {*/
+/*margin-left: auto;*/
+/*margin-right: auto;*/
+/*border-radius: 50%;*/
+/*width: 50vh;*/
+/*height: 50vh;*/
+/*margin-top: 50vh;*/
+/*box-shadow: 0 1vh 5vh #0f0f0f inset;*/
+/*clip-path: ellipse(15% 50% at 52% 50%);*/
+/*transform: rotate(90deg);*/
+/*}*/
