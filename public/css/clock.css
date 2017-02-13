@@ -19,11 +19,17 @@ main {
     align-items: center;
 }
 
-.indicators {
+.hour-ind, .sunSetIndicator, .sunRiseIndicator {
     position: absolute;
-    border-radius: 50%;
-    width: 98vh;
-    height: 98vh;
+}
+
+.sunSetIndicator {
+    stroke: lightblue;
+}
+
+.sunRiseIndicator {
+    stroke: orange;
+    stroke-width: 5px;
 }
 
 .hour-ring{

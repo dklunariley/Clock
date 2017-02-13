@@ -68,8 +68,8 @@
                                 "min": 34
                             },{
                                 "type": "rise",
-                                "hour": 5,
-                                "min": 59,
+                                "hour": 7,
+                                "min": 15,
                                 "azimuth": 106.8
                             },{
                                 "type": "meridian",
@@ -79,8 +79,8 @@
                                 "distance": 147673000
                             },{
                                 "type": "set",
-                                "hour": 19,
-                                "min": 16,
+                                "hour": 18,
+                                "min": 22,
                                 "azimuth": 253.5
                             },{
                                 "type": "twi6_end",
