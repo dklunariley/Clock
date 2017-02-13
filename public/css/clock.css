@@ -94,7 +94,7 @@ main {
 }
 
 .numbers {
-    margin-top: 47.5%;
+    position: absolute;
 }
 
 .numbers > text {
