@@ -23,6 +23,10 @@ main {
     position: absolute;
 }
 
+.hour-triangle {
+    fill: #cc0000;
+}
+
 .sunSetIndicator {
     stroke: magenta;
     stroke-width: 5px;
@@ -75,7 +79,6 @@ main {
 
 .moon {
     stroke: silver;
-    stroke-width: 3;
     fill: silver;
 }
 
