@@ -8,41 +8,32 @@
 // Separate sun indicator for DST offset. Also greys out under horizon.
 // Moon symbol. Obviously changes for phases. Circles face to represent position.
 // Month and day arc.
-// Season indicator.
+// Season indicator?
 // Temp and weather icons.
 
 (function  () {
     var staticData = {
         "version": 2,
-
         "locations": [{
             "id": "750",
-
             "geo": {
                 "name": "Lord Howe Island",
-
                 "state": "Lord Howe Island",
-
                 "country": {
                     "id": "au",
                     "name": "Australia"
                 },
-
                 "latitude": -31.557,
-
                 "longitude": 159.086
             },
-
             "astronomy": {
                 "objects": [{
                     "name": "sun",
-
                     "current": {
                         "azimuth": 89.0,
                         "altitude": 28.0,
                         "distance": 147696384
                     },
-
                     "days": [{
                         "date": "2017-02-12",
                         "events": [{
@@ -151,6 +142,8 @@
     };
 
     var $hour_ind = $("#hour-ind"),
+        $sunSetIndicator = $('#sunSetIndicator'),
+        $sunRiseIndicator = $('#sunRiseIndicator'),
         secs = 0,
         radius = 348,
         outerRadius = radius - 10,
@@ -159,9 +152,6 @@
         rotation,
         number,
         angle,
-        days,
-        sunRise,
-        sunSet,
         deg;
 
         // var $info = $.ajax('https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-13T00%3A55%3A54%2B00%3A00&signature=7W%2BD6kQ2SBrgumy88CTXeIvQnWg%3D&version=2&object=sun&placeid=australia%2Flord-howe-island&startdt=2017-02-12&types=all');
@@ -169,15 +159,13 @@
     testFunction();
     function testFunction()
     {
-        var $sunSetIndicator = $('#sunSetIndicator');
-        var $sunRiseIndicator = $('#sunRiseIndicator');
         // $info.done(function() {
         console.log("Received request");
         // info = $info.responseText;
         // var json = JSON.parse($info);
-        days = staticData.locations[0].astronomy.objects[0].days[0];
-        sunRise = (60 * (days.events[4].min)) + (60 * (60 * (days.events[4].hour)));
-        sunSet = (60 * (days.events[6].min)) + (60 * (60 * (days.events[6].hour)));
+        var days = staticData.locations[0].astronomy.objects[0].days[0];
+        var sunRise = (60 * (days.events[4].min)) + (60 * (60 * (days.events[4].hour)));
+        var sunSet = (60 * (days.events[6].min)) + (60 * (60 * (days.events[6].hour)));
         var riseDeg = getDeg(sunRise);
         var setDeg = getDeg(sunSet);
         setIndicator(riseDeg, $sunRiseIndicator);
@@ -239,8 +227,8 @@
     for (var i = 0; i < 24; i++) {
         number = createElement('text');
         angle = Math.PI / 12 * i;
-        number.setAttribute('x', ((radius) * Math.cos(angle)));
-        number.setAttribute('y', ((radius) * Math.sin(angle)));
+        number.setAttribute('x', ((radius - 12) * Math.cos(angle)));
+        number.setAttribute('y', ((radius - 12) * Math.sin(angle)));
         number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
         rotation = i * 15;
@@ -276,9 +264,6 @@
         return d;
     }
 
-
 // test query for dateandtime.com
 // https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-12T18%3A57%3A46%2B00%3A00&signature=fz6cny4zA05%2F7bp1vuspGYk54RY%3D&version=2&prettyprint=1&object=moon&placeid=australia%2Flord-howe-island&startdt=2017-02-12&enddt=2017-02-15&geo=0&types=all
-
-
 }());
