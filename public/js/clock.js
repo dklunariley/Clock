@@ -2,8 +2,6 @@
  * Created by macbookair on 2/2/17.
  */
 /****************  API object ***********/
-// Api request for sunrise and sunset. (On start or midnight update)
-// Insert marks for sunrise and sunset.
 // Equinox and solstice colors (Eq and sol API?)
 
 /****************  Other Ideas  *********/
@@ -162,13 +160,9 @@
         number,
         angle,
         days,
-        sunRiseHour,
-        sunRiseMinute,
         sunRise,
-        sunSetHour,
-        sunSetMin,
         sunSet,
-        secondsArced;
+        deg;
 
         // var $info = $.ajax('https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-13T00%3A55%3A54%2B00%3A00&signature=7W%2BD6kQ2SBrgumy88CTXeIvQnWg%3D&version=2&object=sun&placeid=australia%2Flord-howe-island&startdt=2017-02-12&types=all');
 
@@ -182,17 +176,13 @@
         // info = $info.responseText;
         // var json = JSON.parse($info);
         days = staticData.locations[0].astronomy.objects[0].days[0];
-        sunRiseHour = days.events[4].hour;
-        sunRiseMinute = days.events[4].min;
-        sunRise = (60 * sunRiseMinute) + (60 * (60 * sunRiseHour));
-        sunSetHour = days.events[6].hour;
-        sunSetMin = days.events[6].min;
-        sunSet = (60 * sunSetMin) + (60 * (60 * sunSetHour));
+        sunRise = (60 * (days.events[4].min)) + (60 * (60 * (days.events[4].hour)));
+        sunSet = (60 * (days.events[6].min)) + (60 * (60 * (days.events[6].hour)));
+        var riseDeg = getDeg(sunRise);
+        var setDeg = getDeg(sunSet);
         setIndicator(sunRise, $sunRiseIndicator);
         setIndicator(sunSet, $sunSetIndicator);
-        var riseDeg = secondsArc(sunRise);
-        var setDeg = secondsArc(sunSet);
-        arc = document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
+        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
         // });
     }
 
@@ -213,9 +203,9 @@
         return secs;
     }
 
-    function secondsArc(secs) {
-        secondsArced = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
-        return secondsArced;
+    function getDeg(secs) {
+        deg = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
+        return deg;
     }
 
     // ???? Can set parameters with defaults? Not here.
@@ -223,8 +213,8 @@
         secs = (isNaN(secs)) ? updateSecs(): secs ;
         $indicateType = (typeof $indicateType !== 'undefined') ?  $indicateType : $hour_ind;
         secs += 1;
-        secondsArc(secs);
-        $indicateType.css('transform','rotate(' + secondsArced + 'deg)');
+        getDeg(secs);
+        $indicateType.css('transform','rotate(' + deg + 'deg)');
         if (secs == 86400){updateSecs();}
     }
 
@@ -247,8 +237,8 @@
     for (var i = 0; i < 24; i++) {
         number = createElement('text');
         angle = Math.PI / 12 * i;
-        number.setAttribute('x', ((radius - 10) * Math.cos(angle)));
-        number.setAttribute('y', ((radius - 10) * Math.sin(angle)));
+        number.setAttribute('x', ((radius) * Math.cos(angle)));
+        number.setAttribute('y', ((radius) * Math.sin(angle)));
         number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
         rotation = i * 15;
@@ -274,17 +264,13 @@
     }
 
     function describeArc(x, y, radius, startAngle, endAngle){
-
         var start = polarToCartesian(x, y, radius, endAngle);
         var end = polarToCartesian(x, y, radius, startAngle);
-
         var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-
         var d = [
             "M", start.x, start.y,
             "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
         ].join(" ");
-
         return d;
     }
 

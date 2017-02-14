@@ -68,6 +68,11 @@ main {
     opacity: .6;
 }
 
+.area-of-sky {
+    stroke: #36b4f3;
+    stroke-width: 380px;
+}
+
 .moon {
     stroke: silver;
     stroke-width: 3;
