@@ -167,10 +167,9 @@
         sunRise,
         sunSetHour,
         sunSetMin,
-        sunSet;
+        sunSet,
+        secondsArced;
 
-
-    
         // var $info = $.ajax('https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-13T00%3A55%3A54%2B00%3A00&signature=7W%2BD6kQ2SBrgumy88CTXeIvQnWg%3D&version=2&object=sun&placeid=australia%2Flord-howe-island&startdt=2017-02-12&types=all');
 
     testFunction();
@@ -191,7 +190,9 @@
         sunSet = (60 * sunSetMin) + (60 * (60 * sunSetHour));
         setIndicator(sunRise, $sunRiseIndicator);
         setIndicator(sunSet, $sunSetIndicator);
-
+        var riseDeg = secondsArc(sunRise);
+        var setDeg = secondsArc(sunSet);
+        arc = document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
         // });
     }
 
@@ -212,13 +213,18 @@
         return secs;
     }
 
+    function secondsArc(secs) {
+        secondsArced = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
+        return secondsArced;
+    }
+
     // ???? Can set parameters with defaults? Not here.
     function setIndicator(secs, $indicateType) {
         secs = (isNaN(secs)) ? updateSecs(): secs ;
         $indicateType = (typeof $indicateType !== 'undefined') ?  $indicateType : $hour_ind;
         secs += 1;
-        var indicator = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
-        $indicateType.css('transform','rotate(' + indicator + 'deg)');
+        secondsArc(secs);
+        $indicateType.css('transform','rotate(' + secondsArced + 'deg)');
         if (secs == 86400){updateSecs();}
     }
 
@@ -259,10 +265,32 @@
         }
     }
 
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        var angleInRadians = (angleInDegrees+90) * Math.PI / 180.0;
+        return {
+            x: centerX + (radius * Math.cos(angleInRadians)),
+            y: centerY + (radius * Math.sin(angleInRadians))
+        };
+    }
+
+    function describeArc(x, y, radius, startAngle, endAngle){
+
+        var start = polarToCartesian(x, y, radius, endAngle);
+        var end = polarToCartesian(x, y, radius, startAngle);
+
+        var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+        var d = [
+            "M", start.x, start.y,
+            "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+        ].join(" ");
+
+        return d;
+    }
+
 
 // test query for dateandtime.com
 // https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-12T18%3A57%3A46%2B00%3A00&signature=fz6cny4zA05%2F7bp1vuspGYk54RY%3D&version=2&prettyprint=1&object=moon&placeid=australia%2Flord-howe-island&startdt=2017-02-12&enddt=2017-02-15&geo=0&types=all
-
 
 
 }());

@@ -68,7 +68,13 @@ main {
     opacity: .6;
 }
 
-.numbers, .ticks {
+.moon {
+    stroke: silver;
+    stroke-width: 3;
+    fill: silver;
+}
+
+.numbers, .ticks, .moon {
     position: absolute;
 }
 
