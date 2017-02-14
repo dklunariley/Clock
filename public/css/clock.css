@@ -75,6 +75,7 @@ main {
 .area-of-sky {
     stroke: #36b4f3;
     stroke-width: 380px;
+    fill: transparent;
 }
 
 .moon {

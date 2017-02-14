@@ -146,7 +146,7 @@
         $sunRiseIndicator = $('#sunRiseIndicator'),
         secs = 0,
         radius = 348,
-        outerRadius = radius - 10,
+        outerRadius = radius + 50,
         numbers = document.getElementById('numbers'),
         ticks = document.getElementById('ticks'),
         rotation,
@@ -166,8 +166,8 @@
         var days = staticData.locations[0].astronomy.objects[0].days[0];
         var sunRise = (60 * (days.events[4].min)) + (60 * (60 * (days.events[4].hour)));
         var sunSet = (60 * (days.events[6].min)) + (60 * (60 * (days.events[6].hour)));
-        var riseDeg = getDeg(sunRise);
-        var setDeg = getDeg(sunSet);
+        var riseDeg = secondsToDegrees(sunRise);
+        var setDeg = secondsToDegrees(sunSet);
         setIndicator(riseDeg, $sunRiseIndicator);
         setIndicator(setDeg, $sunSetIndicator);
         document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
@@ -191,7 +191,7 @@
         return secs;
     }
 
-    function getDeg(secs) {
+    function secondsToDegrees(secs) {
         deg = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
         return deg;
     }
@@ -203,7 +203,7 @@
 
     function updateHourInd() {
         secs += 1;
-        deg = getDeg(secs);
+        deg = secondsToDegrees(secs);
         if (secs == 86400){updateSecs();}
         setIndicator(deg, $hour_ind);
     }
@@ -226,27 +226,27 @@
 
     for (var i = 0; i < 24; i++) {
         number = createElement('text');
-        angle = Math.PI / 12 * i;
-        number.setAttribute('x', (radius * Math.cos(angle)));
-        number.setAttribute('y', (radius * Math.sin(angle)));
+        rotation = i * 15;                              // Using rotation as angle since it has the same value (always).
+        var set = polarToCartesian(0, 0, radius, rotation);
+        number.setAttribute('x', set.x);
+        number.setAttribute('y', set.y);
         number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
-        rotation = i * 15;
-        createMark(ticks, outerRadius + 60, 20, rotation);
+        createMark(ticks, outerRadius, 20, rotation);
 
         for (j = 1; j < 12; j++) {
             if (j % 6 == 0){
-                createMark(ticks, outerRadius + 60, 18, rotation + j * 3.75);
+                createMark(ticks, outerRadius, 18, rotation + j * 3.75);
             } else if (j % 3 == 0) {
-                createMark(ticks, outerRadius + 60, 12, rotation + j * 3.75);
+                createMark(ticks, outerRadius, 12, rotation + j * 3.75);
             } else {
-                createMark(ticks, outerRadius + 60, 8, rotation + j * 1.25);
+                createMark(ticks, outerRadius, 8, rotation + j * 1.25);
             }
         }
     }
 
     function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-        var angleInRadians = (angleInDegrees+90) * Math.PI / 180.0;
+        var angleInRadians = (angleInDegrees) * Math.PI / 180.0;
         return {
             x: centerX + (radius * Math.cos(angleInRadians)),
             y: centerY + (radius * Math.sin(angleInRadians))
@@ -254,6 +254,7 @@
     }
 
     function describeArc(x, y, radius, startAngle, endAngle){
+        startAngle += 90; endAngle += 90;
         var start = polarToCartesian(x, y, radius, endAngle);
         var end = polarToCartesian(x, y, radius, startAngle);
         var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
