@@ -227,20 +227,20 @@
     for (var i = 0; i < 24; i++) {
         number = createElement('text');
         angle = Math.PI / 12 * i;
-        number.setAttribute('x', ((radius - 12) * Math.cos(angle)));
-        number.setAttribute('y', ((radius - 12) * Math.sin(angle)));
+        number.setAttribute('x', ((radius) * Math.cos(angle)));
+        number.setAttribute('y', ((radius) * Math.sin(angle)));
         number.innerHTML = ((i + 18) % 24);
         numbers.appendChild(number);
         rotation = i * 15;
-        createMark(ticks, outerRadius + 40, 20, rotation);
+        createMark(ticks, outerRadius + 60, 20, rotation);
 
         for (j = 1; j < 12; j++) {
             if (j % 6 == 0){
-                createMark(ticks, outerRadius + 40, 18, rotation + j * 3.75);
+                createMark(ticks, outerRadius + 60, 18, rotation + j * 3.75);
             } else if (j % 3 == 0) {
-                createMark(ticks, outerRadius + 40, 12, rotation + j * 3.75);
+                createMark(ticks, outerRadius + 60, 12, rotation + j * 3.75);
             } else {
-                createMark(ticks, outerRadius + 40, 8, rotation + j * 1.25);
+                createMark(ticks, outerRadius + 60, 8, rotation + j * 1.25);
             }
         }
     }
