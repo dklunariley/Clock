@@ -151,10 +151,7 @@
         ticks = document.getElementById('ticks'),
         rotation,
         number,
-        angle,
         deg;
-
-        // var $info = $.ajax('https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-13T00%3A55%3A54%2B00%3A00&signature=7W%2BD6kQ2SBrgumy88CTXeIvQnWg%3D&version=2&object=sun&placeid=australia%2Flord-howe-island&startdt=2017-02-12&types=all');
 
     testFunction();
     function testFunction()
@@ -182,22 +179,24 @@
         //     console.log("Complete");
         // });
 
+    placeNumbers();
+    createMarks();
     updateSecs();
 
     function updateSecs() {
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
-        secs += 70; // Something is off approximately this amount. Instead of finding it....
+        secs += 70;                              // Something is off approximately this amount. Instead of finding it...
         return secs;
     }
 
     function secondsToDegrees(secs) {
-        deg = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
+        deg = secs * 0.00416666666;              // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
         return deg;
     }
 
-    // ???? Can set parameters with defaults? Not here.
-    function setIndicator(deg, $indicateType) {
+
+    function setIndicator(deg, $indicateType) {                      // ???? Can set parameters with defaults? Not here.
         $indicateType.css('transform','rotate(' + deg + 'deg)');
     }
 
@@ -214,7 +213,7 @@
         return document.createElementNS("http://www.w3.org/2000/svg", type);
     }
 
-    function createMark(group, outerRadius, length, rotation) {
+    function placeMark(group, outerRadius, length, rotation) {
         var mark = createElement('line');
         mark.setAttribute('x1', outerRadius - length);
         mark.setAttribute('x2', outerRadius);
@@ -224,24 +223,31 @@
         group.appendChild(mark);
     }
 
-    for (var i = 0; i < 24; i++) {
-        number = createElement('text');
-        rotation = i * 15;                              // Using rotation as angle since it has the same value (always).
-        var set = polarToCartesian(0, 0, radius, rotation);
-        number.setAttribute('x', set.x);
-        number.setAttribute('y', set.y);
-        number.innerHTML = ((i + 18) % 24);
-        numbers.appendChild(number);
-        createMark(ticks, outerRadius, 20, rotation);
-
-        for (j = 1; j < 12; j++) {
-            if (j % 6 == 0){
-                createMark(ticks, outerRadius, 18, rotation + j * 3.75);
-            } else if (j % 3 == 0) {
-                createMark(ticks, outerRadius, 12, rotation + j * 3.75);
-            } else {
-                createMark(ticks, outerRadius, 8, rotation + j * 1.25);
+    function createMarks() {
+        for (var i = 0; i < 24; i++) {
+            rotation = i * 15;
+            placeMark(ticks, outerRadius, 20, rotation);
+            for (var j = 1; j < 12; j++) {
+                if (j % 6 == 0) {
+                    placeMark(ticks, outerRadius, 18, rotation + j * 3.75);
+                } else if (j % 3 == 0) {
+                    placeMark(ticks, outerRadius, 12, rotation + j * 3.75);
+                } else {
+                    placeMark(ticks, outerRadius, 8, rotation + j * 1.25);
+                }
             }
+        }
+    }
+
+    function placeNumbers() {
+        for (var i = 0; i < 24; i++) {
+            number = createElement('text');
+            rotation = i * 15;                          // Using rotation as angle since it has the same value (always).
+            var set = polarToCartesian(0, 0, radius, rotation);
+            number.setAttribute('x', set.x);
+            number.setAttribute('y', set.y);
+            number.innerHTML = ((i + 18) % 24);
+            numbers.appendChild(number);
         }
     }
 
@@ -258,13 +264,9 @@
         var start = polarToCartesian(x, y, radius, endAngle);
         var end = polarToCartesian(x, y, radius, startAngle);
         var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-        var d = [
+        return  [
             "M", start.x, start.y,
             "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
         ].join(" ");
-        return d;
     }
-
-// test query for dateandtime.com
-// https://api.xmltime.com/astronomy?accesskey=Q2QvwUXkdG&expires=2017-02-12T18%3A57%3A46%2B00%3A00&signature=fz6cny4zA05%2F7bp1vuspGYk54RY%3D&version=2&prettyprint=1&object=moon&placeid=australia%2Flord-howe-island&startdt=2017-02-12&enddt=2017-02-15&geo=0&types=all
 }());
