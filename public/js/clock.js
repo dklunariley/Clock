@@ -180,8 +180,8 @@
         sunSet = (60 * (days.events[6].min)) + (60 * (60 * (days.events[6].hour)));
         var riseDeg = getDeg(sunRise);
         var setDeg = getDeg(sunSet);
-        setIndicator(sunRise, $sunRiseIndicator);
-        setIndicator(sunSet, $sunSetIndicator);
+        setIndicator(riseDeg, $sunRiseIndicator);
+        setIndicator(setDeg, $sunSetIndicator);
         document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
         // });
     }
@@ -209,16 +209,18 @@
     }
 
     // ???? Can set parameters with defaults? Not here.
-    function setIndicator(secs, $indicateType) {
-        secs = (isNaN(secs)) ? updateSecs(): secs ;
-        $indicateType = (typeof $indicateType !== 'undefined') ?  $indicateType : $hour_ind;
-        secs += 1;
-        getDeg(secs);
+    function setIndicator(deg, $indicateType) {
         $indicateType.css('transform','rotate(' + deg + 'deg)');
-        if (secs == 86400){updateSecs();}
     }
 
-    setInterval(setIndicator, 1000);
+    function updateHourInd() {
+        secs += 1;
+        deg = getDeg(secs);
+        if (secs == 86400){updateSecs();}
+        setIndicator(deg, $hour_ind);
+    }
+
+    setInterval(updateHourInd, 1000);
 
     function createElement(type) {
         return document.createElementNS("http://www.w3.org/2000/svg", type);
