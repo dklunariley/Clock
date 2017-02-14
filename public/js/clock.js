@@ -181,7 +181,6 @@
         // $info.done(function() {
         console.log("Received request");
         // info = $info.responseText;
-        console.log(staticData);
         // var json = JSON.parse($info);
         days = staticData.locations[0].astronomy.objects[0].days[0];
         sunRiseHour = days.events[4].hour;
@@ -192,8 +191,6 @@
         sunSet = (60 * sunSetMin) + (60 * (60 * sunSetHour));
         setIndicator(sunRise, $sunRiseIndicator);
         setIndicator(sunSet, $sunSetIndicator);
-        console.log("Sun rise in milli secs: " + sunRise);
-        console.log("Sun set in milli secs: " + sunSet);
 
         // });
     }
@@ -212,17 +209,20 @@
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
         secs += 70; // Something is off approximately this amount. Instead of finding it....
+        return secs;
     }
 
-    function setIndicator (secs, $indicateType) {
+    // ???? Can set parameters with defaults? Not here.
+    function setIndicator(secs, $indicateType) {
+        secs = (isNaN(secs)) ? updateSecs(): secs ;
+        $indicateType = (typeof $indicateType !== 'undefined') ?  $indicateType : $hour_ind;
         secs += 1;
-        console.log(secs);
         var indicator = secs * 0.00416666666; // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
         $indicateType.css('transform','rotate(' + indicator + 'deg)');
         if (secs == 86400){updateSecs();}
     }
 
-    setInterval(setIndicator(secs, $hour_ind), 1000);
+    setInterval(setIndicator, 1000);
 
     function createElement(type) {
         return document.createElementNS("http://www.w3.org/2000/svg", type);
