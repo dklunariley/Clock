@@ -114,8 +114,8 @@
         setIndicator(riseDeg, $sunRiseIndicator);
         setIndicator(setDeg, $sunSetIndicator);
         document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
-        var moonRise  = (60 * 37) + (60 * (60 * 23));
-        var moonSet = (60 * 1) + (60 * (60 * 0));
+        var moonRise  = (60 * 8) + (60 * (60 * 10));
+        var moonSet = (60 * 6) + (60 * (60 * 22));
         moonRiseDeg = secondsToDegrees(moonRise);
         moonSetDeg = secondsToDegrees(moonSet);
         console.log(moonRiseDeg + ' ' + moonSetDeg);
@@ -157,16 +157,14 @@
         secs += 1;
         deg = secondsToDegrees(secs);
         (secs == 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
-        if (deg >= moonRiseDeg || deg <= moonSetDeg) {
+        if (deg >= moonRiseDeg || deg <= moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
+            console.log("Deg: " + deg +" moonRiseDeg: " + moonRiseDeg + " moonSetDeg: " + moonSetDeg);
             $moon.css('visibility', 'visible');
             setInterval(updateMoon, 1000);
         } else {
             $moon.css('visibility', 'hidden');
+            clearInterval(updateMoon);
         }
-
-        // if (deg >= moonSetDeg) {
-
-        // }
     }
 
     setInterval(updateHourInd, 1000);
