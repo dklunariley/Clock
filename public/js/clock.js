@@ -114,8 +114,8 @@
         setIndicator(riseDeg, $sunRiseIndicator);
         setIndicator(setDeg, $sunSetIndicator);
         document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
-        var moonRise  = (60 * 8) + (60 * (60 * 10));
-        var moonSet = (60 * 6) + (60 * (60 * 22));
+        var moonRise  = (60 * 8) + (60 * (60 * 22));
+        var moonSet = (60 * 6) + (60 * (60 * 10));
         moonRiseDeg = secondsToDegrees(moonRise);
         moonSetDeg = secondsToDegrees(moonSet);
         console.log(moonRiseDeg + ' ' + moonSetDeg);
