@@ -19,7 +19,7 @@ main {
     align-items: center;
 }
 
-.hour-ind, .sunSetIndicator, .sunRiseIndicator {
+.hour-ind, .sunSetIndicator, .sunRiseIndicator, .moonSetIndicator, .moonRiseIndicator {
     position: absolute;
 }
 
@@ -27,14 +27,29 @@ main {
     fill: #cc0000;
 }
 
+.moon {
+    stroke: silver;
+    visibility: visible;
+}
+
+.sunSetIndicator, .sunRiseIndicator, .moonSetIndicator, .moonRiseIndicator {
+    stroke-width: 5px;
+}
+
 .sunSetIndicator {
     stroke: magenta;
-    stroke-width: 5px;
 }
 
 .sunRiseIndicator {
     stroke: orange;
-    stroke-width: 5px;
+}
+
+.moonSetIndicator {
+    stroke: black;
+}
+
+.moonRiseIndicator {
+    stroke: silver;
 }
 
 .hour-ring{

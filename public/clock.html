@@ -21,10 +21,15 @@
                      viewBox="0 0 760 760">
                     <line x1="379.5" y1="732" x2="379.5" y2="757"><title>Sunrise</title></line>
                 </svg>
-                <svg class="moon" id="moon" xmlns="http://www.w3.org/2000/svg"
+                <svg class="moonSetIndicator" id="moonSetIndicator" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 760 760">
-                    <circle cx="381" cy="744.5" r="10" stroke="silver" stroke-width="3" fill="silver"></circle>
+                    <line x1="379.5" y1="732" x2="379.5" y2="757"><title>moonSet</title></line>
                 </svg>
+                <svg class="moonRiseIndicator" id="moonRiseIndicator" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 760 760">
+                    <line x1="379.5" y1="732" x2="379.5" y2="757"><title>moonRise</title></line>
+                </svg>
+
 
             <div class="number-ring">
                 <svg class="ticks" id="ticks" xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +42,10 @@
                 </svg>
 
                 <div class="face">
+                    <svg class="moon" id="moon" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 760 760">
+                        <circle cx="381" cy="700" r="20" ></circle>
+                    </svg>
                     <svg class="area-of-sky" id="a-o-w" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 800 800"
                          preserveAspectRatio="none" height="100%" width="100%">

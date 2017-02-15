@@ -58,7 +58,7 @@
                             },{
                                 "type": "rise",
                                 "hour": 7,
-                                "min": 15,
+                                "min": 14,
                                 "azimuth": 106.8
                             },{
                                 "type": "meridian",
@@ -69,72 +69,13 @@
                             },{
                                 "type": "set",
                                 "hour": 18,
-                                "min": 22,
+                                "min": 23,
                                 "azimuth": 253.5
-                            },{
-                                "type": "twi6_end",
-                                "hour": 19,
-                                "min": 42
-                            },{
-                                "type": "twi12_end",
-                                "hour": 20,
-                                "min": 12
-                            },{
-                                "type": "twi18_end",
-                                "hour": 20,
-                                "min": 43
                             }],
                         "daylength": "13:17",
                         "moonphase": "waninggibbous"
                     },{
-                        "date": "2017-02-13",
-                        "events": [{
-                            "type": "antimeridian",
-                            "hour": 0,
-                            "min": 38
-                        },{
-                            "type": "twi18_start",
-                            "hour": 4,
-                            "min": 33
-                        },{
-                            "type": "twi12_start",
-                            "hour": 5,
-                            "min": 4
-                        },{
-                            "type": "twi6_start",
-                            "hour": 5,
-                            "min": 35
-                        },{
-                            "type": "rise",
-                            "hour": 6,
-                            "min": 0,
-                            "azimuth": 106.4
-                        },{
-                            "type": "meridian",
-                            "hour": 12,
-                            "min": 38,
-                            "altitude": 71.8,
-                            "distance": 147701000
-                        },{
-                            "type": "set",
-                            "hour": 19,
-                            "min": 15,
-                            "azimuth": 253.9
-                        },{
-                            "type": "twi6_end",
-                            "hour": 19,
-                            "min": 41
-                        },{
-                            "type": "twi12_end",
-                            "hour": 20,
-                            "min": 11
-                        },{
-                            "type": "twi18_end",
-                            "hour": 20,
-                            "min": 42
-                        }],
-                        "daylength": "13:15",
-                        "moonphase": "waninggibbous"
+
                     }]
                 }]
             }
@@ -142,22 +83,27 @@
     };
 
     var $hour_ind = $("#hour-ind"),
-        $sunSetIndicator = $('#sunSetIndicator'),
         $sunRiseIndicator = $('#sunRiseIndicator'),
-        secs = 0,
+        $sunSetIndicator = $('#sunSetIndicator'),
+        $moon = $('#moon'),
+        $moonRiseIndicator = $('#moonRiseIndicator'),
+        $moonSetIndicator = $('#moonSetIndicator'),
+        deg,
+        moonRiseDeg,
+        moonSetDeg,
+        number,
+        numbers = document.getElementById('numbers'),
         radius = 348,
         outerRadius = radius + 50,
-        numbers = document.getElementById('numbers'),
-        ticks = document.getElementById('ticks'),
         rotation,
-        number,
-        deg;
+        secs = 0,
+        ticks = document.getElementById('ticks');
 
     testFunction();
     function testFunction()
     {
         // $info.done(function() {
-        console.log("Received request");
+        // console.log("Received request");
         // info = $info.responseText;
         // var json = JSON.parse($info);
         var days = staticData.locations[0].astronomy.objects[0].days[0];
@@ -168,6 +114,14 @@
         setIndicator(riseDeg, $sunRiseIndicator);
         setIndicator(setDeg, $sunSetIndicator);
         document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
+        var moonRise  = (60 * 37) + (60 * (60 * 23));
+        var moonSet = (60 * 1) + (60 * (60 * 0));
+        moonRiseDeg = secondsToDegrees(moonRise);
+        moonSetDeg = secondsToDegrees(moonSet);
+        console.log(moonRiseDeg + ' ' + moonSetDeg);
+        setIndicator(moonRiseDeg, $moonRiseIndicator);
+        setIndicator(moonSetDeg, $moonSetIndicator);
+
         // });
     }
 
@@ -186,7 +140,7 @@
     function updateSecs() {
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
-        secs += 70;                              // Something is off approximately this amount. Instead of finding it...
+        // secs += 70;                              // Something is off approximately this amount. Instead of finding it...
         return secs;
     }
 
@@ -195,7 +149,6 @@
         return deg;
     }
 
-
     function setIndicator(deg, $indicateType) {                      // ???? Can set parameters with defaults? Not here.
         $indicateType.css('transform','rotate(' + deg + 'deg)');
     }
@@ -203,24 +156,28 @@
     function updateHourInd() {
         secs += 1;
         deg = secondsToDegrees(secs);
-        if (secs == 86400){updateSecs();}
-        setIndicator(deg, $hour_ind);
+        (secs == 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
+        if (deg >= moonRiseDeg || deg <= moonSetDeg) {
+            $moon.css('visibility', 'visible');
+            setInterval(updateMoon, 1000);
+        } else {
+            $moon.css('visibility', 'hidden');
+        }
+
+        // if (deg >= moonSetDeg) {
+
+        // }
     }
 
     setInterval(updateHourInd, 1000);
 
-    function createElement(type) {
-        return document.createElementNS("http://www.w3.org/2000/svg", type);
+    function updateMoon() {
+        deg = secondsToDegrees(secs);
+        setIndicator(deg, $moon);
     }
 
-    function placeMark(group, outerRadius, length, rotation) {
-        var mark = createElement('line');
-        mark.setAttribute('x1', outerRadius - length);
-        mark.setAttribute('x2', outerRadius);
-        mark.setAttribute('y1', '0');
-        mark.setAttribute('y2', '0');
-        mark.setAttribute('transform', 'rotate(' + rotation + ')');
-        group.appendChild(mark);
+    function createElement(type) {
+        return document.createElementNS("http://www.w3.org/2000/svg", type);
     }
 
     function createMarks() {
@@ -239,6 +196,16 @@
         }
     }
 
+    function placeMark(group, outerRadius, length, rotation) {
+        var mark = createElement('line');
+        mark.setAttribute('x1', outerRadius - length);
+        mark.setAttribute('x2', outerRadius);
+        mark.setAttribute('y1', '0');
+        mark.setAttribute('y2', '0');
+        mark.setAttribute('transform', 'rotate(' + rotation + ')');
+        group.appendChild(mark);
+    }
+
     function placeNumbers() {
         for (var i = 0; i < 24; i++) {
             number = createElement('text');
@@ -251,14 +218,6 @@
         }
     }
 
-    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-        var angleInRadians = (angleInDegrees) * Math.PI / 180.0;
-        return {
-            x: centerX + (radius * Math.cos(angleInRadians)),
-            y: centerY + (radius * Math.sin(angleInRadians))
-        };
-    }
-
     function describeArc(x, y, radius, startAngle, endAngle){
         startAngle += 90; endAngle += 90;
         var start = polarToCartesian(x, y, radius, endAngle);
@@ -268,5 +227,13 @@
             "M", start.x, start.y,
             "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
         ].join(" ");
+    }
+
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        var angleInRadians = (angleInDegrees) * Math.PI / 180.0;
+        return {
+            x: centerX + (radius * Math.cos(angleInRadians)),
+            y: centerY + (radius * Math.sin(angleInRadians))
+        };
     }
 }());
