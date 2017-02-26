@@ -8,6 +8,9 @@
 </head>
 <body>
 <main>
+
+    <button onclick="getLocation()">Try It</button>
+    <p id="demo"></p>
         <div class="hour-ring">
                 <svg class="hour-ind" id="hour-ind"  xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 760 760">
@@ -57,7 +60,24 @@
         </div>
     </main>
 </body>
+<script>
+//    var x = document.getElementById("demo");
+//
+//    function getLocation() {
+//        if (navigator.geolocation) {
+//            navigator.geolocation.getCurrentPosition(showPosition);
+//        } else {
+//            x.innerHTML = "Geolocation is not supported by this browser.";
+//        }
+//    }
+//
+//    function showPosition(position) {
+//        x.innerHTML = "Latitude: " + position.coords.latitude +
+//            "<br>Longitude: " + position.coords.longitude;
+//    }
+</script>
 <script src="js/jquery-1.12.0.js"></script>
+<script src="js/SunCalc.js"></script>
 <script src="js/clock.js"></script>
 </html>
 
