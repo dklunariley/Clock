@@ -36,8 +36,8 @@
     function testFunction()
     {
         var date = Date.now();
-        var lat =  29.4980603;
-        var lng =  -98.6093386;
+        var lat =  29.4980603;                                                     // Will be replaced with geo locator.
+        var lng =  -98.6093386;                                                    // This too.
 
         var times = SunCalc.getTimes(date, lat, lng);
         var sunriseDateAndTime = times.sunrise;
@@ -58,6 +58,9 @@
         moonSetDeg = secondsToDegrees(moonSet);
         setIndicator(moonRiseDeg, $moonRiseIndicator);
         setIndicator(moonSetDeg, $moonSetIndicator);
+
+        var moonPhase = SunCalc.getMoonIllumination(date);
+        // console.log(moonPhase);
 
         document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
 
