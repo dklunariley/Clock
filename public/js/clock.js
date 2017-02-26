@@ -38,27 +38,29 @@
         var date = Date.now();
         var lat =  29.4980603;
         var lng =  -98.6093386;
+
         var times = SunCalc.getTimes(date, lat, lng);
         var sunriseDateAndTime = times.sunrise;
         var sunsetDateAndTime = times.sunset;
         var sunRise = pullHourAndMin(sunriseDateAndTime);
         var sunSet = pullHourAndMin(sunsetDateAndTime);
-        // var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
-        // console.log("Moon times: " + moonTimes);
         var riseDeg = secondsToDegrees(sunRise);
         var setDeg = secondsToDegrees(sunSet);
         setIndicator(riseDeg, $sunRiseIndicator);
         setIndicator(setDeg, $sunSetIndicator);
-        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
-        var moonRise  = (60 * 8) + (60 * (60 * 22));
-        var moonSet = (60 * 6) + (60 * (60 * 10));
+
+        var moonTimes = SunCalc.getMoonTimes(date, lat, lng, false);
+        var moonriseDateAndTime = moonTimes.rise;
+        var moonsetDateAndTime = moonTimes.set;
+        var moonRise  = pullHourAndMin(moonriseDateAndTime);
+        var moonSet = pullHourAndMin(moonsetDateAndTime);
         moonRiseDeg = secondsToDegrees(moonRise);
         moonSetDeg = secondsToDegrees(moonSet);
-        console.log(moonRiseDeg + ' ' + moonSetDeg);
         setIndicator(moonRiseDeg, $moonRiseIndicator);
         setIndicator(moonSetDeg, $moonSetIndicator);
 
-        // });
+        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
+
     }
 
 
@@ -87,7 +89,6 @@
         deg = secondsToDegrees(secs);
         (secs == 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
         if (deg >= moonRiseDeg || deg <= moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
-            console.log("Deg: " + deg +" moonRiseDeg: " + moonRiseDeg + " moonSetDeg: " + moonSetDeg);
             $moon.css('visibility', 'visible');
             setInterval(updateMoon, 1000);
         } else {
@@ -164,11 +165,11 @@
         };
     }
 
-    function pullHourAndMin (grabTime) {
+    function pullHourAndMin(grabTime) {             // Comes as an object with one long string value. Need split it up.
         var stringDateAndTime =  grabTime.toString();
         var arrayifyHoursAndMin = stringDateAndTime.split(" ");
-        var hourAndMin = arrayifyHoursAndMin[4];
-        var separatedHoursAndMin = hourAndMin.split(":");
+        var hourAndMin = arrayifyHoursAndMin[4];                                   // Grabbing the time XX:xx:xx format.
+        var separatedHoursAndMin = hourAndMin.split(":");                                       // Splitting time apart.
         var sepHours = separatedHoursAndMin[0];
         var sepMin = separatedHoursAndMin[1];
         return  (60 * (sepMin) + (60 * (60 * sepHours)));
