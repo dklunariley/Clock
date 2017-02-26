@@ -15,77 +15,6 @@
 
 (function  () {
 
-    //
-    // var staticData = {
-    //     "version": 2,
-    //     "locations": [{
-    //         "id": "750",
-    //         "geo": {
-    //             "name": "Lord Howe Island",
-    //             "state": "Lord Howe Island",
-    //             "country": {
-    //                 "id": "au",
-    //                 "name": "Australia"
-    //             },
-    //             "latitude": -31.557,
-    //             "longitude": 159.086
-    //         },
-    //         "astronomy": {
-    //             "objects": [{
-    //                 "name": "sun",
-    //                 "current": {
-    //                     "azimuth": 89.0,
-    //                     "altitude": 28.0,
-    //                     "distance": 147696384
-    //                 },
-    //                 "days": [{
-    //                     "date": "2017-02-12",
-    //                     "events": [{
-    //                         "type": "antimeridian",
-    //                         "hour": 0,
-    //                         "min": 38
-    //                     },
-    //                         {
-    //                             "type": "twi18_start",
-    //                             "hour": 4,
-    //                             "min": 31
-    //                         },
-    //                         {
-    //                             "type": "twi12_start",
-    //                             "hour": 5,
-    //                             "min": 3
-    //                         },
-    //                         {
-    //                             "type": "twi6_start",
-    //                             "hour": 5,
-    //                             "min": 34
-    //                         },{
-    //                             "type": "rise",
-    //                             "hour": 7,
-    //                             "min": 14,
-    //                             "azimuth": 106.8
-    //                         },{
-    //                             "type": "meridian",
-    //                             "hour": 12,
-    //                             "min": 38,
-    //                             "altitude": 72.1,
-    //                             "distance": 147673000
-    //                         },{
-    //                             "type": "set",
-    //                             "hour": 18,
-    //                             "min": 23,
-    //                             "azimuth": 253.5
-    //                         }],
-    //                     "daylength": "13:17",
-    //                     "moonphase": "waninggibbous"
-    //                 },{
-    //
-    //                 }]
-    //             }]
-    //         }
-    //     }]
-    // };
-
     var $hour_ind = $("#hour-ind"),
         $sunRiseIndicator = $('#sunRiseIndicator'),
         $sunSetIndicator = $('#sunSetIndicator'),
@@ -121,10 +50,6 @@
         console.log(sepHours + " " + sepMin);
         var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
         console.log("Moon times: " + moonTimes);
-        // $info.done(function() {
-        // console.log("Received request");
-        // info = $info.responseText;
-        // var json = JSON.parse($info);
 
         // var days = staticData.locations[0].astronomy.objects[0].days[0];
         var sunRise = (60 * (sepMin) + (60 * (60 * sepHours)));
@@ -145,13 +70,6 @@
         // });
     }
 
-        // $info.fail(function () {
-        //     console.log("Error");
-        // });
-        //
-        // $info.always(function () {
-        //     console.log("Complete");
-        // });
 
     placeNumbers();
     createMarks();
