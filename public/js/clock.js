@@ -41,22 +41,12 @@
         var times = SunCalc.getTimes(date, lat, lng);
         var sunriseDateAndTime = times.sunrise;
         var sunsetDateAndTime = times.sunset;
-        console.log(sunsetDateAndTime);
-        var stringDateAndTime =  sunriseDateAndTime.toString();
-        var arrayifyHoursAndMin = stringDateAndTime.split(" ");
-        var hourAndMin = arrayifyHoursAndMin[4];
-        var separatedHoursAndMin = hourAndMin.split(":");
-        var sepHours = separatedHoursAndMin[0];
-        var sepMin = separatedHoursAndMin[1];
-        console.log(sepHours + " " + sepMin);
-        var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
-        console.log("Moon times: " + moonTimes);
-
-        // var days = staticData.locations[0].astronomy.objects[0].days[0];
-        var sunRise = (60 * (sepMin) + (60 * (60 * sepHours)));
-        // var sunSet = (60 * (days.events[6].min)) + (60 * (60 * (days.events[6].hour)));
+        var sunRise = pullHourAndMin(sunriseDateAndTime);
+        var sunSet = pullHourAndMin(sunsetDateAndTime);
+        // var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
+        // console.log("Moon times: " + moonTimes);
         var riseDeg = secondsToDegrees(sunRise);
-        // var setDeg = secondsToDegrees(sunSet);
+        var setDeg = secondsToDegrees(sunSet);
         setIndicator(riseDeg, $sunRiseIndicator);
         setIndicator(setDeg, $sunSetIndicator);
         document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
@@ -172,5 +162,15 @@
             x: centerX + (radius * Math.cos(angleInRadians)),
             y: centerY + (radius * Math.sin(angleInRadians))
         };
+    }
+
+    function pullHourAndMin (grabTime) {
+        var stringDateAndTime =  grabTime.toString();
+        var arrayifyHoursAndMin = stringDateAndTime.split(" ");
+        var hourAndMin = arrayifyHoursAndMin[4];
+        var separatedHoursAndMin = hourAndMin.split(":");
+        var sepHours = separatedHoursAndMin[0];
+        var sepMin = separatedHoursAndMin[1];
+        return  (60 * (sepMin) + (60 * (60 * sepHours)));
     }
 }());
