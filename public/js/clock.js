@@ -39,8 +39,9 @@
         var lat =  29.4980603;
         var lng =  -98.6093386;
         var times = SunCalc.getTimes(date, lat, lng);
-
         var sunriseDateAndTime = times.sunrise;
+        var sunsetDateAndTime = times.sunset;
+        console.log(sunsetDateAndTime);
         var stringDateAndTime =  sunriseDateAndTime.toString();
         var arrayifyHoursAndMin = stringDateAndTime.split(" ");
         var hourAndMin = arrayifyHoursAndMin[4];
