@@ -49,7 +49,7 @@
         setIndicator(riseDeg, $sunRiseIndicator);
         setIndicator(setDeg, $sunSetIndicator);
 
-        var moonTimes = SunCalc.getMoonTimes(date, lat, lng, false);
+        var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
         var moonriseDateAndTime = moonTimes.rise;
         var moonsetDateAndTime = moonTimes.set;
         var moonRise  = pullHourAndMin(moonriseDateAndTime);
@@ -91,7 +91,7 @@
         secs += 1;
         deg = secondsToDegrees(secs);
         (secs == 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
-        if (deg >= moonRiseDeg || deg <= moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
+        if (deg >= moonRiseDeg && deg <= moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
             $moon.css('visibility', 'visible');
             setInterval(updateMoon, 1000);
         } else {
