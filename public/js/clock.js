@@ -95,7 +95,7 @@
     function updateHourInd() {
         secs += 1;
         deg = secondsToDegrees(secs);
-        (secs == 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
+        (secs >= 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
         if (deg >= Moon.moonRiseDeg && deg <= Moon.moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
             $moon.css('visibility', 'visible');
             setInterval(updateMoon, 1000);
