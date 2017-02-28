@@ -29,19 +29,19 @@
         },
         Moon = {
             rise : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise,
-            set : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set
+            set : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set,
+            moonRiseDeg : 0,
+            moonSetDeg : 0
         },
-        moonRiseDeg,
-        moonSetDeg,
         number,
         numbers = document.getElementById('numbers'),
         radius = 348,
         Sun = {
             rise :  SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng).sunrise,
-            set :  SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng).sunset
+            set :  SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng).sunset,
+            sunRiseDeg : 0,
+            sunSetDeg : 0
         },
-        sunRiseDeg,
-        sunSetDeg,
         outerRadius = radius + 50,
         rotation,
         secs = 0,
@@ -67,12 +67,14 @@
     function extractSeconds(riseOrSet, $indicator) {
         var riseOrSetDeg = secondsToDegrees(pullHourAndMin(riseOrSet));
         setIndicator(riseOrSetDeg, $indicator);
-        if ($indicator == $sunRiseIndicator) {sunRiseDeg = riseOrSetDeg;}
-            else if ($indicator == $sunSetIndicator) {sunSetDeg = riseOrSetDeg;}
+        if ($indicator == $sunRiseIndicator) {Sun.sunRiseDeg = riseOrSetDeg;}
+            else if ($indicator == $sunSetIndicator) {Sun.sunSetDeg = riseOrSetDeg;}
+            else if ($indicator == $moonRiseIndicator) {Moon.moonRiseDeg = riseOrSetDeg;}
+            else {Moon.moonSetDeg = riseOrSetDeg;}
     }
 
     function setAOS() {
-        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, sunRiseDeg, sunSetDeg));
+        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, Sun.sunRiseDeg, Sun.sunSetDeg));
     }
 
     function updateSecs() {
@@ -94,7 +96,7 @@
         secs += 1;
         deg = secondsToDegrees(secs);
         (secs == 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
-        if (deg >= moonRiseDeg && deg <= moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
+        if (deg >= Moon.moonRiseDeg && deg <= Moon.moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
             $moon.css('visibility', 'visible');
             setInterval(updateMoon, 1000);
         } else {
