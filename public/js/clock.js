@@ -33,6 +33,10 @@
         ticks = document.getElementById('ticks');
 
     testFunction();
+    placeNumbers();
+    createMarks();
+    updateSecs();
+
     function testFunction()
     {
         var date = Date.now();
@@ -45,38 +49,29 @@
         extractSeconds(sunriseDateAndTime, $sunRiseIndicator);
         extractSeconds(sunsetDateAndTime, $sunSetIndicator);
 
-        // var sunRise = pullHourAndMin(sunriseDateAndTime);
-        // var sunSet = pullHourAndMin(sunsetDateAndTime);
-        // var riseDeg = secondsToDegrees(sunRise);
-        // var setDeg = secondsToDegrees(sunSet);
-        // setIndicator(riseDeg, $sunRiseIndicator);
-        // setIndicator(setDeg, $sunSetIndicator);
-
         var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
         var moonriseDateAndTime = moonTimes.rise;
-        var moonsetDateAndTime = moonTimes.set;
+        var moonSetDateAndTime = moonTimes.set;
         extractSeconds(moonriseDateAndTime, $moonRiseIndicator);
-        extractSeconds(moonsetDateAndTime, $moonSetIndicator);
+        extractSeconds(moonSetDateAndTime, $moonSetIndicator);
+    }
 
-
+    function getMoonPhase() {
         var moonPhase = SunCalc.getMoonIllumination(date);
         // console.log(moonPhase);
-
-        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
-
     }
-
 
     function extractSeconds(riseOrSet, $indicator) {
-        var secRise  = pullHourAndMin(riseOrSet);
-        var riseDeg = secondsToDegrees(secRise);
-        setIndicator(riseDeg, $indicator);
+        var secRiseOrSet  = pullHourAndMin(riseOrSet);
+        var riseOrSetDeg = secondsToDegrees(secRiseOrSet);
+        setIndicator(riseOrSetDeg, $indicator);
     }
 
-
-    placeNumbers();
-    createMarks();
-    updateSecs();
+    function setAOS() {
+        // riseDeg = get value of $sunSetIndicator
+        // setDeg = get value of $sunRisIndicator
+        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
+    }
 
     function updateSecs() {
         var dt = new Date();
