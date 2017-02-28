@@ -21,62 +21,66 @@
         $moon = $('#moon'),
         $moonRiseIndicator = $('#moonRiseIndicator'),
         $moonSetIndicator = $('#moonSetIndicator'),
+        date = Date.now(),
         deg,
+        LatAndLng = {
+            lat: 29.4980603,
+            lng: -98.6093386
+        },
         moonRiseDeg,
         moonSetDeg,
         number,
         numbers = document.getElementById('numbers'),
         radius = 348,
+        sunRiseDeg,
+        sunSetDeg,
         outerRadius = radius + 50,
         rotation,
         secs = 0,
         ticks = document.getElementById('ticks');
 
-    testFunction();
     placeNumbers();
     createMarks();
     updateSecs();
+    setSun();
+    setMoon();
+    setAOS();
 
-    function testFunction()
-    {
-        var date = Date.now();
-        var lat =  29.4980603;                                                     // Will be replaced with geo locator.
-        var lng =  -98.6093386;                                                    // This too.
-
-        var times = SunCalc.getTimes(date, lat, lng);
-        var sunriseDateAndTime = times.sunrise;
-        var sunsetDateAndTime = times.sunset;
+    function setSun() {
+        var sunTimes = SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng);
+        var sunriseDateAndTime = sunTimes.sunrise;
+        var sunsetDateAndTime = sunTimes.sunset;
         extractSeconds(sunriseDateAndTime, $sunRiseIndicator);
         extractSeconds(sunsetDateAndTime, $sunSetIndicator);
+    }
 
-        var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
+    function setMoon() {
+        var moonTimes = SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng);
         var moonriseDateAndTime = moonTimes.rise;
         var moonSetDateAndTime = moonTimes.set;
         extractSeconds(moonriseDateAndTime, $moonRiseIndicator);
         extractSeconds(moonSetDateAndTime, $moonSetIndicator);
     }
 
-    function getMoonPhase() {
-        var moonPhase = SunCalc.getMoonIllumination(date);
-        // console.log(moonPhase);
-    }
+    // function getMoonPhase(date) {
+    //     var moonPhase = SunCalc.getMoonIllumination(date);
+    //     // console.log(moonPhase);
+    // }
 
     function extractSeconds(riseOrSet, $indicator) {
-        var secRiseOrSet  = pullHourAndMin(riseOrSet);
-        var riseOrSetDeg = secondsToDegrees(secRiseOrSet);
+        var riseOrSetDeg = secondsToDegrees(pullHourAndMin(riseOrSet));
         setIndicator(riseOrSetDeg, $indicator);
+        if ($indicator == $sunRiseIndicator) {sunRiseDeg = riseOrSetDeg;}
+            else if ($indicator == $sunSetIndicator) {sunSetDeg = riseOrSetDeg;}
     }
 
     function setAOS() {
-        // riseDeg = get value of $sunSetIndicator
-        // setDeg = get value of $sunRisIndicator
-        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, riseDeg, setDeg));
+        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, sunRiseDeg, sunSetDeg));
     }
 
     function updateSecs() {
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
-        // secs += 70;                           // Something is off approximately this amount. Instead of finding it...
         return secs;
     }
 
@@ -172,12 +176,11 @@
 
     function pullHourAndMin(grabTime) {             // Comes as an object with one long string value. Need split it up.
         var stringDateAndTime =  grabTime.toString();
-        var arrayifyHoursAndMin = stringDateAndTime.split(" ");
-        var hourAndMin = arrayifyHoursAndMin[4];                                   // Grabbing the time XX:xx:xx format.
+        var arrayOfHoursAndMin = stringDateAndTime.split(" ");
+        var hourAndMin = arrayOfHoursAndMin[4];                                   // Grabbing the time XX:xx:xx format.
         var separatedHoursAndMin = hourAndMin.split(":");                                       // Splitting time apart.
         var sepHours = separatedHoursAndMin[0];
         var sepMin = separatedHoursAndMin[1];
         return  (60 * (sepMin) + (60 * (60 * sepHours)));
     }
-
 }());
