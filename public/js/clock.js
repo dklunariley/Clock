@@ -27,11 +27,19 @@
             lat: 29.4980603,
             lng: -98.6093386
         },
+        Moon = {
+            rise : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise,
+            set : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set
+        },
         moonRiseDeg,
         moonSetDeg,
         number,
         numbers = document.getElementById('numbers'),
         radius = 348,
+        Sun = {
+            rise :  SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng).sunrise,
+            set :  SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng).sunset
+        },
         sunRiseDeg,
         sunSetDeg,
         outerRadius = radius + 50,
@@ -42,24 +50,13 @@
     placeNumbers();
     createMarks();
     updateSecs();
-    setSun();
-    setMoon();
+    setSkyObject(Sun.rise, Sun.set, $sunRiseIndicator, $sunSetIndicator);
+    setSkyObject(Moon.rise, Moon.set, $moonRiseIndicator, $moonSetIndicator);
     setAOS();
 
-    function setSun() {
-        var sunTimes = SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng);
-        var sunriseDateAndTime = sunTimes.sunrise;
-        var sunsetDateAndTime = sunTimes.sunset;
-        extractSeconds(sunriseDateAndTime, $sunRiseIndicator);
-        extractSeconds(sunsetDateAndTime, $sunSetIndicator);
-    }
-
-    function setMoon() {
-        var moonTimes = SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng);
-        var moonriseDateAndTime = moonTimes.rise;
-        var moonSetDateAndTime = moonTimes.set;
-        extractSeconds(moonriseDateAndTime, $moonRiseIndicator);
-        extractSeconds(moonSetDateAndTime, $moonSetIndicator);
+    function setSkyObject(rise, set, $riseIndicator, $setIndicator) {
+        extractSeconds(rise, $riseIndicator);
+        extractSeconds(set, $setIndicator);
     }
 
     // function getMoonPhase(date) {
