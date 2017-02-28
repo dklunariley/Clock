@@ -42,6 +42,7 @@
         var times = SunCalc.getTimes(date, lat, lng);
         var sunriseDateAndTime = times.sunrise;
         var sunsetDateAndTime = times.sunset;
+
         var sunRise = pullHourAndMin(sunriseDateAndTime);
         var sunSet = pullHourAndMin(sunsetDateAndTime);
         var riseDeg = secondsToDegrees(sunRise);
@@ -52,6 +53,7 @@
         var moonTimes = SunCalc.getMoonTimes(date, lat, lng);
         var moonriseDateAndTime = moonTimes.rise;
         var moonsetDateAndTime = moonTimes.set;
+
         var moonRise  = pullHourAndMin(moonriseDateAndTime);
         var moonSet = pullHourAndMin(moonsetDateAndTime);
         moonRiseDeg = secondsToDegrees(moonRise);
@@ -74,7 +76,7 @@
     function updateSecs() {
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
-        // secs += 70;                              // Something is off approximately this amount. Instead of finding it...
+        // secs += 70;                           // Something is off approximately this amount. Instead of finding it...
         return secs;
     }
 
@@ -153,8 +155,8 @@
         startAngle += 90; endAngle += 90;
         var start = polarToCartesian(x, y, radius, endAngle);
         var end = polarToCartesian(x, y, radius, startAngle);
-        var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-        return  [
+        var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";        // Will be obtuse when past spring solstice.
+        return  [                                                                     //  Acute when past fall solstice.
             "M", start.x, start.y,
             "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
         ].join(" ");
