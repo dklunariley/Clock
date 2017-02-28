@@ -64,8 +64,8 @@
     //     // console.log(moonPhase);
     // }
 
-    function extractSeconds(riseOrSet, $indicator) {
-        var riseOrSetDeg = secondsToDegrees(pullHourAndMin(riseOrSet));
+    function extractSeconds(riseOrSetTime, $indicator) {
+        var riseOrSetDeg = secondsToDegrees(pullHourAndMin(riseOrSetTime));
         setIndicator(riseOrSetDeg, $indicator);
         if ($indicator == $sunRiseIndicator) {Sun.sunRiseDeg = riseOrSetDeg;}
             else if ($indicator == $sunSetIndicator) {Sun.sunSetDeg = riseOrSetDeg;}
