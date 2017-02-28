@@ -74,7 +74,8 @@
     }
 
     function setAOS() {
-        document.getElementById("area-of-sky").setAttribute("d", describeArc(400, 400, 190, Sun.sunRiseDeg, Sun.sunSetDeg));
+        document.getElementById("area-of-sky")
+            .setAttribute("d", describeArc(400, 400, 190, Sun.sunRiseDeg, Sun.sunSetDeg));
     }
 
     function updateSecs() {
@@ -96,8 +97,8 @@
         secs += 1;
         deg = secondsToDegrees(secs);
         (secs >= 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
-        if (deg >= Moon.moonRiseDeg && deg <= Moon.moonSetDeg) {     // If set is < than rise! Need 'if' for when rise < than set.
-            $moon.css('visibility', 'visible');
+        if (deg >= Moon.moonRiseDeg && deg <= Moon.moonSetDeg) {                 // If set is < than rise! Need 'if' for
+            $moon.css('visibility', 'visible');                                                 // when rise < than set.
             setInterval(updateMoon, 1000);
         } else {
             $moon.css('visibility', 'hidden');
@@ -177,7 +178,7 @@
         var stringDateAndTime =  grabTime.toString();
         var arrayOfHoursAndMin = stringDateAndTime.split(" ");
         var hourAndMin = arrayOfHoursAndMin[4];                                   // Grabbing the time XX:xx:xx format.
-        var separatedHoursAndMin = hourAndMin.split(":");                                       // Splitting time apart.
+        var separatedHoursAndMin = hourAndMin.split(":");                     // Splitting time apart. I am a Time Lord!
         var sepHours = separatedHoursAndMin[0];
         var sepMin = separatedHoursAndMin[1];
         return  (60 * (sepMin) + (60 * (60 * sepHours)));
