@@ -54,22 +54,21 @@
         },
         moonRise = SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise,
         moonSet = SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set,
+        moon = new SkyObject('moon', $moon, moonRise, moonSet),
         number,
         numbers = document.getElementById('numbers'),
         radius = 348,
         sunRise =  SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng).sunrise,
         sunSet =  SunCalc.getTimes(date, LatAndLng.lat, LatAndLng.lng).sunset,
+        sun = new SkyObject('sun', $hour_ind, sunRise, sunSet),
         outerRadius = radius + 50,
         rotation,
         secs = 0,
         ticks = document.getElementById('ticks');
-    var moon = new SkyObject('moon', $moon, moonRise, moonSet);
-    var sun = new SkyObject('sun', $hour_ind, sunRise, sunSet);
 
     placeNumbers();
     createMarks();
     updateSecs();
-
     setSkyObject(sun.rise, sun.set, $sunRiseIndicator, $sunSetIndicator);
     setSkyObject(moon.rise, moon.set, $moonRiseIndicator, $moonSetIndicator);
     setAOS();
