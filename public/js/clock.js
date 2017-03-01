@@ -21,7 +21,7 @@
         $moonSetIndicator = $('#moonSetIndicator'),
         date = Date.now(),
         deg,
-        LatAndLng = {
+        LatAndLng = {                                                       // To be replaced with geo location service.
             lat: 29.4980603,
             lng: -98.6093386
         },
