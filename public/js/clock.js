@@ -11,8 +11,6 @@
 // Season indicator?
 // Temp and weather icons.
 
-
-
 (function  () {
 
     var $hour_ind = $("#hour-ind"),
@@ -80,9 +78,28 @@
     }
 
     function extractSeconds(riseOrSetTime, $indicator) {
-        var riseOrSetDeg = secondsToDegrees(pullHourAndMin(riseOrSetTime));
+        var riseOrSetDeg = secondsToDegrees(stringToSeconds(riseOrSetTime));
         setIndicator(riseOrSetDeg, $indicator);
         setSkyObjectDeg(riseOrSetDeg, $indicator);
+    }
+
+    function stringToSeconds(grabTime) {              // Comes as an object with one long string value. Need split it up.
+        var stringDateAndTime =  grabTime.toString();
+        var arrayOfVariousData = stringDateAndTime.split(" ");
+        var hourMin = arrayOfVariousData[4];                                   // Grabbing the time XX:xx:xx format.
+        var separateHoursMin = hourMin.split(":");                     // Splitting time apart. I am a Time Lord!
+        var sepHours = separateHoursMin[0];
+        var sepMin = separateHoursMin[1];
+        return  (60 * (sepMin) + (60 * (60 * sepHours)));
+    }
+
+    function secondsToDegrees(secs) {
+        deg = secs * 0.00416666666;              // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
+        return deg;
+    }
+
+    function setIndicator(deg, $indicateType) {                      // ???? Can set parameters with defaults? Not here.
+        $indicateType.css('transform','rotate(' + deg + 'deg)');
     }
 
     function setSkyObjectDeg(riseOrSetDeg, $indicator) {
@@ -101,15 +118,6 @@
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
         return secs;
-    }
-
-    function secondsToDegrees(secs) {
-        deg = secs * 0.00416666666;              // 0.00416666666 (yes, theoretical) is the second arc when 360 = 1 day.
-        return deg;
-    }
-
-    function setIndicator(deg, $indicateType) {                      // ???? Can set parameters with defaults? Not here.
-        $indicateType.css('transform','rotate(' + deg + 'deg)');
     }
 
     function updateHourInd() {
@@ -180,15 +188,5 @@
             x: centerX + (radius * Math.cos(angleInRadians)),
             y: centerY + (radius * Math.sin(angleInRadians))
         };
-    }
-
-    function pullHourAndMin(grabTime) {             // Comes as an object with one long string value. Need split it up.
-        var stringDateAndTime =  grabTime.toString();
-        var arrayOfHoursAndMin = stringDateAndTime.split(" ");
-        var hourAndMin = arrayOfHoursAndMin[4];                                   // Grabbing the time XX:xx:xx format.
-        var separatedHoursAndMin = hourAndMin.split(":");                     // Splitting time apart. I am a Time Lord!
-        var sepHours = separatedHoursAndMin[0];
-        var sepMin = separatedHoursAndMin[1];
-        return  (60 * (sepMin) + (60 * (60 * sepHours)));
     }
 }());
