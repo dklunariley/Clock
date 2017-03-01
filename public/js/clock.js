@@ -83,11 +83,11 @@
         setSkyObjectDeg(riseOrSetDeg, $indicator);
     }
 
-    function stringToSeconds(grabTime) {              // Comes as an object with one long string value. Need split it up.
+    function stringToSeconds(grabTime) {             // Comes as an object with one long string value. Need split it up.
         var stringDateAndTime =  grabTime.toString();
         var arrayOfVariousData = stringDateAndTime.split(" ");
-        var hourMin = arrayOfVariousData[4];                                   // Grabbing the time XX:xx:xx format.
-        var separateHoursMin = hourMin.split(":");                     // Splitting time apart. I am a Time Lord!
+        var hourMin = arrayOfVariousData[4];                                       // Grabbing the time XX:xx:xx format.
+        var separateHoursMin = hourMin.split(":");                            // Splitting time apart. I am a Time Lord!
         var sepHours = separateHoursMin[0];
         var sepMin = separateHoursMin[1];
         return  (60 * (sepMin) + (60 * (60 * sepHours)));
