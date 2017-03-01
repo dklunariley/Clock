@@ -17,13 +17,12 @@
         this.$name = $name;
         this.rise = rise;
         this.set = set;
-        this.riseDeg = riseDeg;
+        this.riseDeg = riseDeg;            //***************** Need to make variable.css(function) for visible or color.
         this.setDeg = setDeg;
         this.visibility = function () {
             if (deg >= name.riseDeg && deg <= name.setDeg) {         // If set is < than rise! Need 'if' for
                 $name.css('visibility', 'visible');                                         // when rise < than set.
                 window.setInterval(function () {
-                    console.log("This");
                     this.update();
                 }, 1000);
             } else {
@@ -34,15 +33,16 @@
         this.update = function () {
             deg = secondsToDegrees(secs);
             setIndicator(deg, $name);
-        }
+        };
     }
 
     var $hour_ind = $("#hour-ind"),
-        $sunRiseIndicator = $('#sunRiseIndicator'),
-        $sunSetIndicator = $('#sunSetIndicator'),
         $moon = $('#moon'),
         $moonRiseIndicator = $('#moonRiseIndicator'),
         $moonSetIndicator = $('#moonSetIndicator'),
+        $sun = $('#sun'),
+        $sunRiseIndicator = $('#sunRiseIndicator'),
+        $sunSetIndicator = $('#sunSetIndicator'),
         date = Date.now(),
         deg,
         LatAndLng = {                                                       // To be replaced with geo location service.
@@ -75,6 +75,8 @@
         //          // console.log(moonPhase);
         //      }
         // },
+        moonRise = SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise,
+        moonSet = SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set,
         number,
         numbers = document.getElementById('numbers'),
         radius = 348,
@@ -92,7 +94,7 @@
     placeNumbers();
     createMarks();
     updateSecs();
-    var moon = new SkyObject('moon', $moon, SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise, SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set, 0, 0);
+    var moon = new SkyObject('moon', $moon, moonRise, moonSet, 0, 0);
     setSkyObject(Sun.rise, Sun.set, $sunRiseIndicator, $sunSetIndicator);
     setSkyObject(moon.rise, moon.set, $moonRiseIndicator, $moonSetIndicator);
     setAOS();
