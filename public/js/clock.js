@@ -12,18 +12,21 @@
 // Temp and weather icons.
 
 (function  () {
-    function SkyObject(name, $name, rise, set, riseDeg, setDeg) {
+    function SkyObject(name, $name, rise, set) {
+        var riseDeg = 0;
+        var setDeg = 0;
         this.name = name;
         this.$name = $name;
         this.rise = rise;
         this.set = set;
-        this.riseDeg = riseDeg;            //***************** Need to make variable.css(function) for visible or color.
+        this.riseDeg = riseDeg;           //***************** Need to make variable.css(function) for visible or color.
         this.setDeg = setDeg;
         this.visibility = function () {
-            if (deg >= name.riseDeg && deg <= name.setDeg) {         // If set is < than rise! Need 'if' for
+            var that = this;
+            if (deg != name.riseDeg && deg != name.setDeg) {         // If set is < than rise! Need 'if' for
                 $name.css('visibility', 'visible');                                         // when rise < than set.
                 window.setInterval(function () {
-                    this.update();
+                    that.update();
                 }, 1000);
             } else {
                 $name.css('visibility', 'hidden');
@@ -94,7 +97,7 @@
     placeNumbers();
     createMarks();
     updateSecs();
-    var moon = new SkyObject('moon', $moon, moonRise, moonSet, 0, 0);
+    var moon = new SkyObject('moon', $moon, moonRise, moonSet);
     setSkyObject(Sun.rise, Sun.set, $sunRiseIndicator, $sunSetIndicator);
     setSkyObject(moon.rise, moon.set, $moonRiseIndicator, $moonSetIndicator);
     setAOS();
