@@ -12,6 +12,31 @@
 // Temp and weather icons.
 
 (function  () {
+    function SkyObject(name, $name, rise, set, riseDeg, setDeg) {
+        this.name = name;
+        this.$name = $name;
+        this.rise = rise;
+        this.set = set;
+        this.riseDeg = riseDeg;
+        this.setDeg = setDeg;
+        this.visibility = function () {
+            if (deg >= name.riseDeg && deg <= name.setDeg) {         // If set is < than rise! Need 'if' for
+                $name.css('visibility', 'visible');                                         // when rise < than set.
+                window.setInterval(function () {
+                    console.log("This");
+                    this.update();
+                }, 1000);
+            } else {
+                $name.css('visibility', 'hidden');
+                window.clearInterval(this.update());
+            }
+        };
+        this.update = function () {
+            deg = secondsToDegrees(secs);
+            setIndicator(deg, $name);
+        }
+    }
+
     var $hour_ind = $("#hour-ind"),
         $sunRiseIndicator = $('#sunRiseIndicator'),
         $sunSetIndicator = $('#sunSetIndicator'),
@@ -24,31 +49,32 @@
             lat: 29.4980603,
             lng: -98.6093386
         },
-        Moon = {
-            rise : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise,
-            set : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set,
-            riseDeg : 0,
-            setDeg : 0,
-            Visibility : function() {
-                if (deg >= Moon.riseDeg && deg <= Moon.setDeg) {         // If set is < than rise! Need 'if' for
-                    $moon.css('visibility', 'visible');                                         // when rise < than set.
-                    window.setInterval(function () {
-                        Moon.updateMoon()
-                    }, 1000);
-                } else {
-                    $moon.css('visibility', 'hidden');
-                    window.clearInterval(Moon.updateMoon());
-                }
-            },
-            updateMoon : function () {
-                deg = secondsToDegrees(secs);
-                setIndicator(deg, $moon);
-            },
-            getMoonPhase :  function() {
-                 var moonPhase = SunCalc.getMoonIllumination(date);
-                 // console.log(moonPhase);
-             }
-        },
+        // Moon = {
+        //     rise : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise,
+        //     set : SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set,
+        //     riseDeg : 0,
+        //     setDeg : 0,
+        //     visibility : function() {
+        //         // console.log("deg: " + deg + "\nrise: " + Moon.riseDeg + "\nset: " + Moon.setDeg);
+        //         if (deg >= Moon.riseDeg && deg < Moon.setDeg) {         // If set is < than rise! Need 'if' for
+        //             $moon.css('visibility', 'visible');                                         // when rise < than set.
+        //             window.setInterval(function () {
+        //                 Moon.updateMoon()
+        //             }, 1000);
+        //         } else {
+        //             $moon.css('visibility', 'hidden');
+        //             window.clearInterval(Moon.updateMoon());
+        //         }
+        //     },
+        //     updateMoon : function () {
+        //         deg = secondsToDegrees(secs);
+        //         setIndicator(deg, $moon);
+        //     },
+        //     getMoonPhase :  function() {
+        //          var moonPhase = SunCalc.getMoonIllumination(date);
+        //          // console.log(moonPhase);
+        //      }
+        // },
         number,
         numbers = document.getElementById('numbers'),
         radius = 348,
@@ -66,8 +92,9 @@
     placeNumbers();
     createMarks();
     updateSecs();
+    var moon = new SkyObject('moon', $moon, SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).rise, SunCalc.getMoonTimes(date, LatAndLng.lat, LatAndLng.lng).set, 0, 0);
     setSkyObject(Sun.rise, Sun.set, $sunRiseIndicator, $sunSetIndicator);
-    setSkyObject(Moon.rise, Moon.set, $moonRiseIndicator, $moonSetIndicator);
+    setSkyObject(moon.rise, moon.set, $moonRiseIndicator, $moonSetIndicator);
     setAOS();
 
     function setSkyObject(rise, set, $riseIndicator, $setIndicator) {
@@ -103,8 +130,8 @@
     function setSkyObjectDeg(riseOrSetDeg, $indicator) {
         if ($indicator == $sunRiseIndicator) {Sun.riseDeg = riseOrSetDeg;}
         else if ($indicator == $sunSetIndicator) {Sun.setDeg = riseOrSetDeg;}
-        else if ($indicator == $moonRiseIndicator) {Moon.riseDeg = riseOrSetDeg;}
-        else {Moon.setDeg = riseOrSetDeg;}
+        else if ($indicator == $moonRiseIndicator) {moon.riseDeg = riseOrSetDeg;}
+        else {moon.setDeg = riseOrSetDeg;}
     }
 
     function setAOS() {
@@ -125,7 +152,7 @@
     }
 
     setInterval(updateHourInd, 1000);
-    setInterval(Moon.Visibility(), 60000);
+    setInterval(moon.visibility(), 60000);
 
     function createElement(type) {
         return document.createElementNS("http://www.w3.org/2000/svg", type);
