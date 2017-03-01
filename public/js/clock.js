@@ -23,7 +23,7 @@
         this.setDeg = setDeg;
         this.visibility = function () {
             var that = this;
-            if (deg != name.riseDeg && deg != name.setDeg) {         // If set is < than rise! Need 'if' for
+            if (deg >= name.riseDeg && deg <= name.setDeg) {         // If set is < than rise! Need 'if' for
                 $name.css('visibility', 'visible');                                         // when rise < than set.
                 window.setInterval(function () {
                     that.update();
