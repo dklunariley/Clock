@@ -37,7 +37,8 @@
         outerRadius = radius + 50,
         rotation,
         secs = 0,
-        ticks = document.getElementById('ticks');
+        ticks = document.getElementById('ticks'),
+        equinoxLine = document.getElementById('equinoxLine');
 
     function SkyObject(name, $name, rise, set) {
         var riseDeg = 0;
@@ -48,19 +49,18 @@
         this.set = set;
         this.riseDeg = riseDeg;           //***************** Need to make variable.css(function) for visible or color.
         this.setDeg = setDeg;
-        this.visibility = function () {
+        this.setVisibility = function () {
             var that = this;
-            that.update();
-            if (deg >= this.riseDeg && deg <= this.setDeg) {
-                $name.css('visibility', 'visible');
-                window.setInterval(function () {
-                    that.update();
-                }, 1000);
-            } else if ((this.riseDeg > this.setDeg) && (deg > (this.riseDeg && this.setDeg))) {
-                $name.css('visibility', 'visible');
-                window.setInterval(function () {
-                    that.update();
-                }, 1000);
+            $name.css('visibility', 'visible');
+            window.setInterval(function () {
+                that.update();
+            }, 1000);
+        },
+        this.checkVisibility = function () {
+            this.update();
+            if ( (deg >= this.riseDeg && deg <= this.setDeg) ||
+               ((this.riseDeg > this.setDeg) && (deg > (this.riseDeg && this.setDeg))) ) {
+                this.setVisibility();
             }
             else {
                 $name.css('visibility', 'hidden');
@@ -83,6 +83,7 @@
         setSkyObject(sun.rise, sun.set, $sunRiseIndicator, $sunSetIndicator);
         setSkyObject(moon.rise, moon.set, $moonRiseIndicator, $moonSetIndicator);
         setAOS();
+        handleEquinox();
     }
 
     function setSkyObject(rise, set, $riseIndicator, $setIndicator) {
@@ -128,14 +129,16 @@
     }
 
     function handleEquinox() {
-        if (180 == sun.setDeg - sun.riseDeg) {
-            // placeMark(equinoxLine, ?outerRadius, ?length, ?rotation);
-        }
+        // if (180 == sun.setDeg - sun.riseDeg) {
+        //     placeMark(equinoxLine, 400, 100, sun.riseDeg);
+        //     console.log("Equi: " + equinoxLine + " " + sun.riseDeg + '\nticks ' + ticks);
+        // }
     }
 
     function updateSecs() {
         var dt = new Date();
         secs = dt.getSeconds() + (60 * (dt.getMinutes() + (60 * dt.getHours())));
+        secs += 80;
         return secs;
     }
 
@@ -146,7 +149,7 @@
     }                                                                                      //problems when time changes.
 
     setInterval(updateHourInd, 1000);
-    setInterval(moon.visibility(), 60000);
+    setInterval(moon.checkVisibility(), 60000);
 
     function createElement(type) {
         return document.createElementNS("http://www.w3.org/2000/svg", type);
@@ -155,14 +158,16 @@
     function createMarks() {
         for (var i = 0; i < 24; i++) {
             rotation = i * 15;
-            placeMark(ticks, outerRadius, 20, rotation);
-            for (var j = 1; j < 12; j++) {
-                if (j % 6 == 0) {
+            placeMark(ticks, outerRadius, 24, rotation);
+            for (var j = 1; j < 60; j++) {
+                if (j % 30 == 0) {
                     placeMark(ticks, outerRadius, 18, rotation + j * 3.75);
-                } else if (j % 3 == 0) {
+                } else if (j % 15 == 0) {
                     placeMark(ticks, outerRadius, 12, rotation + j * 3.75);
-                } else {
+                } else if(j % 5 == 0){
                     placeMark(ticks, outerRadius, 8, rotation + j * 1.25);
+                } else {
+                    placeMark(ticks, outerRadius, 1, rotation + j * .25);
                 }
             }
         }
@@ -191,6 +196,7 @@
     }
 
     function describeArc(x, y, radius, startAngle, endAngle){
+        console.log(radius);
         startAngle += 90; endAngle += 90;
         var start = polarToCartesian(x, y, radius, endAngle);
         var end = polarToCartesian(x, y, radius, startAngle);
