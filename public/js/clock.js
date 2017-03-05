@@ -57,7 +57,7 @@
                     that.update();
                 }, 1000);
 
-            } else if ((this.riseDeg > this.setDeg)) {
+            } else if ((this.riseDeg > this.setDeg) && (deg > (this.riseDeg && this.setDeg))) {
                 $name.css('visibility', 'visible');
                 window.setInterval(function () {
                     that.update();
