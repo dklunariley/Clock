@@ -56,7 +56,6 @@
                 window.setInterval(function () {
                     that.update();
                 }, 1000);
-
             } else if ((this.riseDeg > this.setDeg) && (deg > (this.riseDeg && this.setDeg))) {
                 $name.css('visibility', 'visible');
                 window.setInterval(function () {
@@ -77,6 +76,7 @@
     startClock();
 
     function startClock() {
+        date = Date.now();
         placeNumbers();
         createMarks();
         updateSecs();
@@ -125,9 +125,11 @@
     function setAOS() {
         document.getElementById("area-of-sky")
             .setAttribute("d", describeArc(400, 400, 190, sun.riseDeg, sun.setDeg));
-        console.log(sun.riseDeg + ' ' + sun.setDeg);
-        if (180 == sun.setDeg - sun.riseDeg) {
+    }
 
+    function handleEquinox() {
+        if (180 == sun.setDeg - sun.riseDeg) {
+            // placeMark(equinoxLine, ?outerRadius, ?length, ?rotation);
         }
     }
 
@@ -140,8 +142,8 @@
     function updateHourInd() {
         secs += 1;
         deg = secondsToDegrees(secs);
-        (secs >= 86400) ? startClock() : setIndicator(deg, $hour_ind);
-    }
+        (secs >= 86400) ? startClock() : setIndicator(deg, $hour_ind);                         // This is going to cause
+    }                                                                                      //problems when time changes.
 
     setInterval(updateHourInd, 1000);
     setInterval(moon.visibility(), 60000);
