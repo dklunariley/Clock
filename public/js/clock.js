@@ -12,33 +12,6 @@
 // Temp and weather icons.
 
 (function  () {
-    function SkyObject(name, $name, rise, set) {
-        var riseDeg = 0;
-        var setDeg = 0;
-        this.name = name;
-        this.$name = $name;
-        this.rise = rise;
-        this.set = set;
-        this.riseDeg = riseDeg;           //***************** Need to make variable.css(function) for visible or color.
-        this.setDeg = setDeg;
-        this.visibility = function () {
-            var that = this;
-            if (deg >= name.riseDeg && deg <= name.setDeg) {         // If set is < than rise! Need 'if' for
-                $name.css('visibility', 'visible');                                         // when rise < than set.
-                window.setInterval(function () {
-                    that.update();
-                }, 1000);
-            } else {
-                $name.css('visibility', 'hidden');
-                window.clearInterval(this.update());
-            }
-        };
-        this.update = function () {
-            deg = secondsToDegrees(secs);
-            setIndicator(deg, $name);
-        };
-    }
-
     var $hour_ind = $("#hour-ind"),
         $moon = $('#moon'),
         $moonRiseIndicator = $('#moonRiseIndicator'),
@@ -65,6 +38,41 @@
         rotation,
         secs = 0,
         ticks = document.getElementById('ticks');
+
+    function SkyObject(name, $name, rise, set) {
+        var riseDeg = 0;
+        var setDeg = 0;
+        this.name = name;
+        this.$name = $name;
+        this.rise = rise;
+        this.set = set;
+        this.riseDeg = riseDeg;           //***************** Need to make variable.css(function) for visible or color.
+        this.setDeg = setDeg;
+        this.visibility = function () {
+            var that = this;
+            that.update();
+            if (deg >= this.riseDeg && deg <= this.setDeg) {
+                $name.css('visibility', 'visible');
+                window.setInterval(function () {
+                    that.update();
+                }, 1000);
+
+            } else if ((this.riseDeg > this.setDeg)) {
+                $name.css('visibility', 'visible');
+                window.setInterval(function () {
+                    that.update();
+                }, 1000);
+            }
+            else {
+                $name.css('visibility', 'hidden');
+                window.clearInterval(this.update());
+            }
+        };
+        this.update = function () {
+            deg = secondsToDegrees(secs);
+            setIndicator(deg, $name);
+        };
+    }
 
     placeNumbers();
     createMarks();
