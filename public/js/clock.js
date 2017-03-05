@@ -74,12 +74,16 @@
         };
     }
 
-    placeNumbers();
-    createMarks();
-    updateSecs();
-    setSkyObject(sun.rise, sun.set, $sunRiseIndicator, $sunSetIndicator);
-    setSkyObject(moon.rise, moon.set, $moonRiseIndicator, $moonSetIndicator);
-    setAOS();
+    startClock();
+
+    function startClock() {
+        placeNumbers();
+        createMarks();
+        updateSecs();
+        setSkyObject(sun.rise, sun.set, $sunRiseIndicator, $sunSetIndicator);
+        setSkyObject(moon.rise, moon.set, $moonRiseIndicator, $moonSetIndicator);
+        setAOS();
+    }
 
     function setSkyObject(rise, set, $riseIndicator, $setIndicator) {
         extractSeconds(rise, $riseIndicator);
@@ -121,6 +125,10 @@
     function setAOS() {
         document.getElementById("area-of-sky")
             .setAttribute("d", describeArc(400, 400, 190, sun.riseDeg, sun.setDeg));
+        console.log(sun.riseDeg + ' ' + sun.setDeg);
+        if (180 == sun.setDeg - sun.riseDeg) {
+
+        }
     }
 
     function updateSecs() {
@@ -132,7 +140,7 @@
     function updateHourInd() {
         secs += 1;
         deg = secondsToDegrees(secs);
-        (secs >= 86400) ? updateSecs() : setIndicator(deg, $hour_ind);
+        (secs >= 86400) ? startClock() : setIndicator(deg, $hour_ind);
     }
 
     setInterval(updateHourInd, 1000);
