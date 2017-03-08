@@ -196,7 +196,6 @@
     }
 
     function describeArc(x, y, radius, startAngle, endAngle){
-        console.log(radius);
         startAngle += 90; endAngle += 90;
         var start = polarToCartesian(x, y, radius, endAngle);
         var end = polarToCartesian(x, y, radius, startAngle);
